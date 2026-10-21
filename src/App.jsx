@@ -22,13 +22,13 @@ const initialCases = [
     applicationType: "existing-balance",
     reason: "Registration hold", balance: 4000, requested: 4000,
     deadline: "Oct 28, 2026", status: "Under review", verified: true,
-    income: 1850, expenses: 1120, aid: 1500,
+    income: 1850, expenses: 1120, aid: 1500, aidConfirmed: false,
     description: "A verified tuition balance is preventing registration for the upcoming semester.",
-    notes: "University balance verified. Review disposable income and confirm remaining aid before decision.",
+    notes: "Verify that all available eligible non-interest-bearing aid has been applied and confirm the remaining tuition gap before decision.",
     timeline: [
       ["Oct 16", "Application submitted", "complete"],
       ["Oct 17", "University balance verified", "complete"],
-      ["Oct 18", "Financial review in progress", "current"],
+      ["Oct 18", "Aid and remaining gap verification", "current"],
       ["—", "Decision and agreement", "upcoming"],
       ["—", "University payment", "upcoming"]
     ]
@@ -40,9 +40,9 @@ const initialCases = [
     applicationType: "existing-balance",
     reason: "Graduation clearance", balance: 2750, requested: 2750,
     deadline: "Nov 05, 2026", status: "Submitted", verified: false,
-    income: 0, expenses: 620, aid: 0,
+    income: 0, expenses: 620, aid: 0, aidConfirmed: false,
     description: "Academic requirements are complete; the student reports an outstanding balance blocking graduation clearance.",
-    notes: "Obtain university confirmation of graduation eligibility and verify the balance is the relevant financial barrier.",
+    notes: "Obtain university confirmation of graduation eligibility, verify all available eligible aid has been applied, and confirm the remaining tuition gap.",
     timeline: [
       ["Oct 18", "Application submitted", "complete"],
       ["—", "University graduation status verification", "current"],
@@ -58,7 +58,7 @@ const initialCases = [
     applicationType: "existing-balance",
     reason: "Registration hold", balance: 5200, requested: 4700,
     deadline: "Nov 02, 2026", status: "Information requested", verified: true,
-    income: 900, expenses: 840, aid: 2200,
+    income: 900, expenses: 840, aid: 2200, aidConfirmed: false,
     description: "Student requests assistance with an outstanding balance and reports that campus housing is required by the program.",
     notes: "Verify qualifying charges separately. Required housing exception needs institutional documentation.",
     timeline: [
@@ -76,13 +76,13 @@ const initialCases = [
     applicationType: "existing-balance",
     reason: "Final-semester shortfall", balance: 3150, requested: 3150,
     deadline: "Nov 12, 2026", status: "Under review", verified: true,
-    income: 2100, expenses: 1725, aid: 900,
+    income: 2100, expenses: 1725, aid: 900, aidConfirmed: false,
     description: "A remaining tuition balance is creating a barrier to completing the student's final semester.",
-    notes: "Synthetic River University example. Confirm the final-semester balance, remaining aid, and deadline.",
+    notes: "Synthetic River University example. Confirm all available eligible non-interest-bearing aid has been applied, then verify the remaining gap and deadline.",
     timeline: [
       ["Oct 18", "Application submitted", "complete"],
       ["Oct 19", "University balance verified", "complete"],
-      ["—", "Financial review", "current"],
+      ["—", "Aid and remaining gap verification", "current"],
       ["—", "Decision and agreement", "upcoming"],
       ["—", "University payment", "upcoming"]
     ]
@@ -94,12 +94,12 @@ const initialCases = [
     applicationType: "existing-balance",
     reason: "Graduation clearance", balance: 1850, requested: 1850,
     deadline: "Nov 18, 2026", status: "Submitted", verified: false,
-    income: 0, expenses: 680, aid: 650,
+    income: 0, expenses: 680, aid: 650, aidConfirmed: false,
     description: "The student reports a remaining college balance that may block graduation clearance after completing academic requirements.",
     notes: "Synthetic community college example. Confirm associate-degree completion, graduation eligibility, and whether the balance blocks clearance.",
     timeline: [
       ["Oct 19", "Application submitted", "complete"],
-      ["—", "Graduation eligibility and balance verification", "current"],
+      ["—", "Graduation, aid, and remaining gap verification", "current"],
       ["—", "Financial review", "upcoming"],
       ["—", "Decision and agreement", "upcoming"],
       ["—", "University payment", "upcoming"]
@@ -215,17 +215,17 @@ function App() {
       "starting-school": {
         label: "Starting school · enrollment gap",
         reason: `Starting school · ${applicationTerm}`,
-        timeline: [["Oct 19","Application started","complete"],["—","Enrollment and cost verification","current"],["—","Financial review","upcoming"],["—","Decision and agreement","upcoming"],["—","University payment","upcoming"]]
+        timeline: [["Oct 19","Application started","complete"],["—","Verify aid applications and remaining gap","current"],["—","Financial review","upcoming"],["—","Decision and agreement","upcoming"],["—","University payment","upcoming"]]
       },
       "next-semester": {
         label: "Upcoming semester · tuition gap",
         reason: `Upcoming semester · ${applicationTerm}`,
-        timeline: [["Oct 19","Application submitted","complete"],["—","University balance verification","current"],["—","Financial review","upcoming"],["—","Decision and agreement","upcoming"],["—","University payment","upcoming"]]
+        timeline: [["Oct 19","Application submitted","complete"],["—","Verify aid applications and remaining gap","current"],["—","Financial review","upcoming"],["—","Decision and agreement","upcoming"],["—","University payment","upcoming"]]
       },
       "existing-balance": {
         label: "Existing university balance",
         reason: balanceReason === "graduation" ? "Graduation clearance" : balanceReason === "final" ? "Final-semester shortfall" : "Registration hold",
-        timeline: [["Oct 19","Application submitted","complete"],["—","University balance verification","current"],["—","Financial review","upcoming"],["—","Decision and agreement","upcoming"],["—","University payment","upcoming"]]
+        timeline: [["Oct 19","Application submitted","complete"],["—","Verify aid applications and remaining gap","current"],["—","Financial review","upcoming"],["—","Decision and agreement","upcoming"],["—","University payment","upcoming"]]
       },
       refinance: {
         label: "Existing education financing · future concept",
@@ -243,9 +243,10 @@ function App() {
       deadline: isRefinance ? "Not applicable" : "Nov 06, 2026",
       status: isRefinance ? "Future concept" : "Submitted", verified: false,
       aid: 1200, description: "New synthetic application submitted in demo mode.",
+      aidConfirmed: false,
       notes: isRefinance
         ? "Concept only. Creditor/servicer partnership and legal, regulatory, and qualified Sharia review are prerequisites; no refinancing is offered."
-        : "New application. Verify university balance, aid, deadline, and qualifying expenses.",
+        : "New application. Verify all available eligible non-interest-bearing aid has been applied, then confirm the remaining eligible tuition gap, deadline, and charges.",
       timeline: applicationDetails.timeline
     };
     setCases(prev => [fresh, ...prev]);
@@ -348,8 +349,9 @@ function App() {
             <option value="family-help">D · No job, family may contribute</option>
             <option value="optional-dorm">E · Optional on-campus housing</option>
             <option value="required-dorm">F · Required on-campus housing</option>
-          </select></label><label>{applicationType === "refinance" ? "Illustrative existing principal" : applicationType === "existing-balance" ? "Illustrative balance amount" : "Illustrative funding gap"}<input type="number" min="1" step="1" value={applicationAmount} onChange={e => setApplicationAmount(e.target.value)} required /></label></div>
+          </select></label><label>{applicationType === "refinance" ? "Illustrative existing principal" : "Remaining eligible tuition gap after aid"}<input type="number" min="1" step="1" value={applicationAmount} onChange={e => setApplicationAmount(e.target.value)} required /></label></div>
           {applicationType !== "refinance" && <div className="form-grid"><label>University<select value={applicationUniversity} onChange={e => setApplicationUniversity(e.target.value)}>{universityProfiles.map(institution=><option key={institution.name}>{institution.name}</option>)}</select></label><label>{applicationType === "existing-balance" ? "What is the barrier?" : "Academic term"}{applicationType === "existing-balance" ? <select value={balanceReason} onChange={e => setBalanceReason(e.target.value)}><option value="registration">Registration hold</option><option value="graduation">Graduation clearance</option><option value="final">Final-semester shortfall</option></select> : <select value={applicationTerm} onChange={e => setApplicationTerm(e.target.value)}><option>Spring 2027</option><option>Fall 2027</option><option>Summer 2027</option></select>}</label></div>}
+          {applicationType !== "refinance" && <div className="notice-box"><ShieldCheck size={18}/><span>Before Junnah could finance a tuition gap, students must apply for all available eligible non-interest-bearing aid. Any future review would consider only the verified eligible tuition gap remaining after that aid.</span></div>}
           {applicationType === "refinance" && <div className="notice-box future-concept"><ShieldCheck size={18}/><span>Future concept only—not a current Junnah service or offer. A principal-only refinancing pathway would require creditor/servicer partnerships, legal and regulatory review, and qualified Sharia review. No creditor account numbers or real financial data should be entered.</span></div>}
           {applicationType !== "refinance" && <div className="application-fee-summary"><div><span>Proposed one-time application administration fee</span><strong>{money(illustrativeApplicationFee)} <small>illustrative</small></strong></div><p>Due separately only if an application is approved. No fee to submit, and it is not added to the tuition financing amount or repayment principal. No payment is collected in this demo. Amount and structure require cost validation and legal, regulatory, and qualified Sharia review.</p></div>}
           {applicationType !== "refinance" && <div className="notice-box"><ShieldCheck size={18}/><span>This prototype uses fictional records. Submitting creates a demo application for university verification and human review; it is not a financing decision or offer.</span></div>}
@@ -381,7 +383,7 @@ function StudentPage({cases, selected, setSelectedId, setShowApply, monthly, set
         {selected.applicationType !== "refinance" && <div className="application-fee-summary"><div><span>One-time administration fee if approved</span><strong>{money(illustrativeApplicationFee)} <small>illustrative</small></strong></div><p>Proposed cost-recovery fee, due separately only after approval. Not part of your financing principal; no fee is collected in this demo. Subject to cost validation and legal, regulatory, and qualified Sharia review.</p></div>}
         <div className="progress-head"><strong>Application journey</strong><span>{selected.timeline.filter(t=>t[2]==="complete").length} of {selected.timeline.length} steps</span></div>
         <div className="timeline">{selected.timeline.map((item,i)=><div className={`timeline-item ${item[2]}`} key={i}><div className="timeline-marker">{item[2]==="complete"?<Check size={12}/>:item[2]==="current"?<span/>:<span className="marker-empty"/>}</div><div className="timeline-text"><strong>{item[1]}</strong><span>{item[0]}</span></div>{item[2]==="current"&&<Pill tone="warning">In progress</Pill>}</div>)}</div>
-        <div className="card-foot-note"><ShieldCheck size={16}/><span>Funding is subject to verification, review, an agreed financing agreement, and available capital. This demo is not an offer of financing.</span></div>
+        <div className="card-foot-note"><ShieldCheck size={16}/><span>{selected.applicationType==="refinance"?"Refinancing is a future concept only and is not offered in this demo.":"Students must apply for all available eligible non-interest-bearing aid before any Junnah financing. Funding is limited to the verified eligible tuition gap remaining afterward and is subject to review, an agreement, and available capital. This demo is not an offer."}</span></div>
       </div>
       <div className="stack">
         <div className="card balance-card"><div className="card-head"><div><h3>Repayment explorer</h3><p>Illustrative principal-only scenario</p></div><div className="soft-icon"><Wallet size={17}/></div></div><div className="balance-amount">{money(selected.requested)}</div><div className="muted-label">Illustrative principal amount</div><div className="slider-label"><span>Monthly payment</span><strong>{money(monthly)}</strong></div><input className="range" type="range" min="50" max="500" step="25" value={monthly} onChange={e=>setMonthly(Number(e.target.value))}/><div className="range-ends"><span>$50 / month</span><span>$500 / month</span></div><div className="payoff-box"><div><span>Estimated payoff time</span><strong>{Math.floor(months/12)>0?`${Math.floor(months/12)} yr `:""}{months%12?`${months%12} mo`:""}</strong></div><div><span>Total principal repaid</span><strong>{money(selected.requested)}</strong></div></div><p className="fine-print">This calculation shows principal only. The illustrative application administration fee is separate, due only if approved, and is not included in the financed amount or repayment schedule.</p></div>
@@ -399,7 +401,7 @@ function CasePage({cases, selected, setSelectedId, updateCase, showNotice}) {
   const [notes,setNotes] = useState(selected.notes);
   React.useEffect(()=>setNotes(selected.notes),[selected.id]);
   return <>
-    <div className="metric-grid three"><Metric label="Open applications" value={cases.filter(c=>!["Declined","Payment confirmed"].includes(c.status)).length} note="Across demo cases" icon={ClipboardCheck}/><Metric label="Awaiting verification" value={cases.filter(c=>!c.verified).length} note="University confirmation needed" icon={FileCheck2}/><Metric label="Urgent deadlines" value={cases.length} note="Synthetic deadline flags" icon={Clock3}/></div>
+    <div className="metric-grid three"><Metric label="Open applications" value={cases.filter(c=>!["Declined","Payment confirmed"].includes(c.status)).length} note="Across demo cases" icon={ClipboardCheck}/><Metric label="Awaiting verification" value={cases.filter(c=>!c.verified||(c.applicationType!=="refinance"&&!c.aidConfirmed)).length} note="Balance and aid confirmation needed" icon={FileCheck2}/><Metric label="Urgent deadlines" value={cases.length} note="Synthetic deadline flags" icon={Clock3}/></div>
     <div className="section-heading"><div><h2>Application queue</h2><p>Review each student's verified need and documented circumstances.</p></div><div className="filter-tabs">{["all","Submitted","Under review","Information requested","Approved","Declined","Payment confirmed"].map(t=><button key={t} className={tab===t?"selected":""} onClick={()=>setTab(t)}>{t==="all"?"All cases":t}</button>)}</div></div>
     <div className="case-layout">
       <div className="card queue-card"><div className="queue-search"><Search size={16}/><span>Search applications</span><kbd>⌘ K</kbd></div><div className="queue-list">{filtered.map(c=><button className={`queue-item ${selected.id===c.id?"active":""}`} key={c.id} onClick={()=>setSelectedId(c.id)}><div className="queue-item-top"><span className="mini-avatar">{c.initials}</span><Pill tone={c.status==="Approved"||c.status==="Payment confirmed"?"success":c.status==="Declined"?"danger":"warning"}>{c.status}</Pill></div><strong>{c.name}</strong><span className="queue-id">{c.id}</span><div className="queue-item-bottom"><span>{c.reason}</span><strong>{money(c.requested)}</strong></div></button>)}{filtered.length===0&&<div className="empty-state">No cases in this status.</div>}</div></div>
@@ -408,9 +410,9 @@ function CasePage({cases, selected, setSelectedId, updateCase, showNotice}) {
         <div className="review-alert"><CalendarClock size={17}/><div><strong>{selected.reason}</strong><span>Deadline: {selected.deadline}. Verify timing and balance before any final decision.</span></div></div>
         <div className="review-section"><h3>Financial snapshot</h3><div className="review-stats"><div><span>Tuition balance</span><strong>{money(selected.balance)}</strong><small>{selected.verified?"University verification marked complete":"Verification required"}</small></div><div><span>Requested</span><strong>{money(selected.requested)}</strong><small>Student requested amount</small></div><div><span>Monthly income</span><strong>{money(selected.income)}</strong><small>Synthetic self-reported value</small></div><div><span>Essential expenses</span><strong>{money(selected.expenses)}</strong><small>Requires proportionate review</small></div></div></div>
         {selected.applicationType !== "refinance" && <div className="review-alert application-fee-review"><CircleDollarSign size={17}/><div><strong>Proposed application administration fee: {money(illustrativeApplicationFee)} (illustrative)</strong><span>Cost-recovery fee payable separately by the student only if approved. It is not part of the requested financing principal and is not collected in this demo. Validate actual costs and obtain legal, regulatory, and qualified Sharia review before offering a fee.</span></div></div>}
-        <div className="review-section"><h3>Verification checklist</h3><div className="checklist-row"><span className={selected.verified?"check-round done":"check-round"}>{selected.verified?<Check size={12}/>:<span/>}</span><div><strong>University balance</strong><p>{selected.verified?"Marked verified in this demo":"Confirm exact amount and deadline with university"}</p></div><button className="text-button small" onClick={()=>updateCase(selected.id,{verified:!selected.verified},"Verification status updated in demo.")}>{selected.verified?"Undo":"Mark verified"}</button></div><div className="checklist-row"><span className="check-round"><span/></span><div><strong>Non-debt aid and eligible expenses</strong><p>Confirm grants, scholarships, and qualifying charges.</p></div><Pill>Review</Pill></div><div className="checklist-row"><span className="check-round"><span/></span><div><strong>Affordability and household circumstances</strong><p>Consider income, essential expenses, and actual family support.</p></div><Pill>Review</Pill></div></div>
+        <div className="review-section"><h3>Verification checklist</h3><div className="checklist-row"><span className={selected.verified?"check-round done":"check-round"}>{selected.verified?<Check size={12}/>:<span/>}</span><div><strong>University balance</strong><p>{selected.verified?"Marked verified in this demo":"Confirm eligible charges and the deadline with the university"}</p></div><button className="text-button small" onClick={()=>updateCase(selected.id,{verified:!selected.verified},"Verification status updated in demo.")}>{selected.verified?"Undo":"Mark verified"}</button></div>{selected.applicationType!=="refinance"&&<div className="checklist-row"><span className={selected.aidConfirmed?"check-round done":"check-round"}>{selected.aidConfirmed?<Check size={12}/>:<span/>}</span><div><strong>Aid-first requirement</strong><p>{selected.aidConfirmed?"Aid application and remaining eligible tuition gap marked verified in this demo":"Confirm the student applied for all available eligible non-interest-bearing aid, or that none was available, then calculate the remaining eligible tuition gap."}</p></div><button className="text-button small" onClick={()=>{if(!selected.aidConfirmed&&!selected.verified){showNotice("Verify university charges and the deadline before confirming the remaining tuition gap.");return;}updateCase(selected.id,{aidConfirmed:!selected.aidConfirmed},"Aid application and remaining gap status updated in demo.");}}>{selected.aidConfirmed?"Undo":"Confirm"}</button></div>}<div className="checklist-row"><span className="check-round"><span/></span><div><strong>Affordability and household circumstances</strong><p>Consider income, essential expenses, and actual family support.</p></div><Pill>Review</Pill></div></div>
         <div className="review-section"><h3>Case notes</h3><textarea className="notes-input" value={notes} onChange={e=>setNotes(e.target.value)} /><Button variant="secondary" onClick={()=>{updateCase(selected.id,{notes},"Case notes saved in demo.");}}>Save notes</Button></div>
-        <div className="decision-actions"><Button variant="secondary" onClick={()=>updateCase(selected.id,{status:"Information requested"},"Student status updated: additional information requested.")}><FileText size={15}/> Request information</Button><Button variant="secondary" onClick={()=>updateCase(selected.id,{status:"Declined"},"Demo case marked declined. No real decision was made.")}>Decline</Button><Button onClick={()=>{if(!selected.verified){showNotice("Verify the university balance before approving this demo case.");return;}updateCase(selected.id,{status:"Approved"},"Demo case approved. Next step: simulate university payment.");}}><CheckCircle2 size={15}/> Approve demo case</Button></div>
+        <div className="decision-actions"><Button variant="secondary" onClick={()=>updateCase(selected.id,{status:"Information requested"},"Student status updated: additional information requested.")}><FileText size={15}/> Request information</Button><Button variant="secondary" onClick={()=>updateCase(selected.id,{status:"Declined"},"Demo case marked declined. No real decision was made.")}>Decline</Button><Button onClick={()=>{if(!selected.verified){showNotice("Verify the university balance before approving this demo case.");return;}if(selected.applicationType!=="refinance"&&!selected.aidConfirmed){showNotice("Confirm all available eligible non-interest-bearing aid has been applied and verify the remaining eligible tuition gap before approving this demo case.");return;}updateCase(selected.id,{status:"Approved"},"Demo case approved. Next step: simulate university payment.");}}><CheckCircle2 size={15}/> Approve demo case</Button></div>
         <div className="fine-print bottom-note">Demonstration only. These controls do not determine real eligibility or constitute a financing offer.</div>
       </div>
     </div>
@@ -438,7 +440,7 @@ function UniversityPage({cases, selected, setSelectedId, updateCase, showNotice}
     }
   };
   return <>
-    <div className="welcome-banner university-banner"><div className="welcome-copy"><div className="welcome-kicker"><Building2 size={14}/> UNIVERSITY PARTNERSHIP</div><h2>Resolve financial barriers before they derail progress.</h2><p>Coordinate referrals, verify eligible balances, and track payment status through one consistent workflow.</p><button className="banner-link" onClick={()=>showNotice("University pilot inquiry captured in this demo only.")}>Explore the pilot model <ArrowRight size={15}/></button></div><div className="university-banner-art"><div className="uni-building"><Building2 size={65}/><div className="uni-columns"><i/><i/><i/><i/></div></div></div></div>
+    <div className="welcome-banner university-banner"><div className="welcome-copy"><div className="welcome-kicker"><Building2 size={14}/> UNIVERSITY PARTNERSHIP</div><h2>Resolve financial barriers before they derail progress.</h2><p>Coordinate referrals, verify the tuition gap remaining after eligible non-interest-bearing aid, and track payment status through one consistent workflow.</p><button className="banner-link" onClick={()=>showNotice("University pilot inquiry captured in this demo only.")}>Explore the pilot model <ArrowRight size={15}/></button></div><div className="university-banner-art"><div className="uni-building"><Building2 size={65}/><div className="uni-columns"><i/><i/><i/><i/></div></div></div></div>
     <div className="section-heading institution-heading"><div><h2>Choose an institution</h2><p>Each campus has its own example referrals and totals.</p></div><Pill>Illustrative demo · No confirmed partners</Pill></div>
     <div className="institution-grid">{institutionViews.map(institution=>{
       const institutionRecords=institution.name==="All institutions"?cases:cases.filter(c=>c.university===institution.name);
@@ -480,9 +482,9 @@ function DonorPage({cases, approvedTotal}) {
   const returned = 1250;
   const contributed = 75000;
   return <>
-    <div className="donor-hero"><div className="donor-illustration"><div className="donor-sun"/><div className="donor-book"><BookOpen size={31}/></div><div className="donor-sprout">✳</div></div><div className="donor-hero-copy"><div className="welcome-kicker"><HeartHandshake size={14}/> CHARITABLE REVOLVING POOL</div><h2>Help open a door. Help open the next one.</h2><p>In the proposed model, donated capital can help students resolve eligible education balances. As principal is repaid, it may be recycled to support future students.</p><span className="demo-inline">Illustrative model · No real donations accepted</span></div></div>
+    <div className="donor-hero"><div className="donor-illustration"><div className="donor-sun"/><div className="donor-book"><BookOpen size={31}/></div><div className="donor-sprout">✳</div></div><div className="donor-hero-copy"><div className="welcome-kicker"><HeartHandshake size={14}/> CHARITABLE REVOLVING POOL</div><h2>Help open a door. Help open the next one.</h2><p>In the proposed model, donated capital may support verified eligible tuition gaps remaining after students apply for all available eligible non-interest-bearing aid. As principal is repaid, it may be recycled subject to program rules and available funds.</p><span className="demo-inline">Illustrative model · No real donations accepted</span></div></div>
     <div className="metric-grid"><Metric label="Illustrative contributions" value={money(contributed)} note="Not actual donations" icon={HeartHandshake}/><Metric label="Capital deployed" value={money(deployed)} note="Synthetic confirmed payments" icon={Wallet}/><Metric label="Principal returned" value={money(returned)} note="Illustrative repayment activity" icon={ArrowRight}/><Metric label="Students supported" value={cases.filter(c=>c.status==="Payment confirmed").length} note="Based on demo payment status" icon={GraduationCap}/></div>
-    <div className="two-col"><div className="card pad-card"><div className="card-head"><div><h3>How the revolving pool works</h3><p>Proposed capital lifecycle</p></div></div><div className="pool-steps"><div className="pool-step"><span className="pool-step-num">01</span><div><strong>Contribute</strong><p>Donations enter a properly governed charitable pool under defined restrictions.</p></div></div><div className="pool-step"><span className="pool-step-num">02</span><div><strong>Support a student</strong><p>Eligible education expenses are paid directly to the university after approval.</p></div></div><div className="pool-step"><span className="pool-step-num">03</span><div><strong>Recover principal</strong><p>Students repay under agreed principal-only terms, subject to documented hardship policy.</p></div></div><div className="pool-step"><span className="pool-step-num">04</span><div><strong>Recycle responsibly</strong><p>Recovered principal can support future students, subject to pool availability and restrictions.</p></div></div></div></div>
+    <div className="two-col"><div className="card pad-card"><div className="card-head"><div><h3>How the revolving pool works</h3><p>Proposed capital lifecycle</p></div></div><div className="pool-steps"><div className="pool-step"><span className="pool-step-num">01</span><div><strong>Contribute</strong><p>Donations enter a properly governed charitable pool under defined restrictions.</p></div></div><div className="pool-step"><span className="pool-step-num">02</span><div><strong>Support a student</strong><p>After all available eligible non-interest-bearing aid has been applied, approved support may address the verified remaining eligible tuition gap.</p></div></div><div className="pool-step"><span className="pool-step-num">03</span><div><strong>Recover principal</strong><p>Students repay under agreed principal-only terms, subject to documented hardship policy.</p></div></div><div className="pool-step"><span className="pool-step-num">04</span><div><strong>Recycle responsibly</strong><p>Recovered principal can support future students, subject to pool availability and restrictions.</p></div></div></div></div>
       <div className="card pad-card"><h3>Impact and accountability</h3><p className="card-subtitle">A responsible donor report should show both progress and limitations.</p><div className="impact-list"><div><CheckCircle2/><span>Verified eligible expenses funded</span></div><div><CheckCircle2/><span>Principal returned and recycled</span></div><div><CheckCircle2/><span>Aggregate student milestones, where measurable</span></div><div><CheckCircle2/><span>Available liquidity and outstanding principal</span></div><div><CheckCircle2/><span>Approved forgiveness and unrecovered balances</span></div></div><div className="info-callout"><ShieldCheck size={17}/><p>Donations are not investments. Principal may be reduced by defaults, approved forgiveness, or unrecovered balances; future outcomes are not guaranteed.</p></div><Button variant="secondary" block onClick={()=>window.print()}><FileText size={16}/> Print demo impact summary</Button></div></div>
   </>;
 }
@@ -491,8 +493,8 @@ function WebsitePage({showNotice}) {
   return <>
     <div className="public-hero"><div className="public-copy"><div className="welcome-kicker"><Sparkles size={14}/> FINANCIAL SUPPORT THROUGH THE STUDENT JOURNEY</div><h2>Tuition shortfalls shouldn't decide who gets to keep going.</h2><p>Junnah is developing a university-integrated, Sharia-guided approach to eligible education financing—designed to help students navigate financial barriers from enrollment through graduation.</p><div className="public-actions"><Button onClick={()=>showNotice("University pilot interest is simulated in this prototype.")}>Explore university partnership <ArrowRight size={16}/></Button><button className="banner-link" onClick={()=>showNotice("Student application entry point is available in the Student portal.")}>Explore student experience <ArrowRight size={15}/></button></div><div className="public-trust"><span><CheckCircle2 size={15}/> Principal-only model proposed</span><span><ShieldCheck size={15}/> Human-reviewed applications</span></div></div><div className="public-visual"><div className="visual-orbit orbit-a"/><div className="visual-orbit orbit-b"/><div className="visual-core"><GraduationCap size={43}/><span>JUNNAH</span></div><div className="floating-note note-one"><CheckCircle2 size={16}/><span><strong>Clear next steps</strong><small>Student journey</small></span></div><div className="floating-note note-two"><Wallet size={16}/><span><strong>Direct payment</strong><small>When approved</small></span></div></div></div>
     <div className="public-section-head"><div className="eyebrow">HOW IT WORKS</div><h2>A clearer path through a difficult moment.</h2><p>One coordinated workflow for students, university teams, and financing operations.</p></div>
-    <div className="public-feature-grid"><div className="public-feature"><div className="feature-icon"><FileText/></div><h3>Understand the shortfall</h3><p>Verify the tuition balance, deadline, eligible aid, and student's circumstances.</p></div><div className="public-feature"><div className="feature-icon"><ClipboardCheck/></div><h3>Review the situation</h3><p>Use consistent criteria, proportionate documentation, and documented human review.</p></div><div className="public-feature"><div className="feature-icon"><Building2/></div><h3>Coordinate with campus</h3><p>Work with authorized university staff to confirm balances and payment status.</p></div><div className="public-feature"><div className="feature-icon"><Activity/></div><h3>Plan beyond today</h3><p>Give students clear repayment visibility and a path to review changing circumstances.</p></div></div>
-    <div className="public-callout"><div><div className="eyebrow">INITIAL PILOT FOCUS</div><h2>Start with urgent barriers. Build for the whole journey.</h2><p>The proposed pilot focuses on verified tuition shortfalls that threaten registration or block the graduation process for academically eligible students. The long-term vision is semester-by-semester support through graduation.</p></div><Button onClick={()=>showNotice("Pilot inquiry is simulated. No message was sent.")}>Discuss a pilot <ArrowRight size={16}/></Button></div>
+    <div className="public-feature-grid"><div className="public-feature"><div className="feature-icon"><FileText/></div><h3>Apply eligible aid first</h3><p>Students must apply for all available eligible non-interest-bearing aid before Junnah could finance a remaining tuition gap.</p></div><div className="public-feature"><div className="feature-icon"><ClipboardCheck/></div><h3>Review the situation</h3><p>Verify the aid applied and remaining tuition gap, then use proportionate documentation and documented human review.</p></div><div className="public-feature"><div className="feature-icon"><Building2/></div><h3>Coordinate with campus</h3><p>Work with authorized university staff to confirm eligible charges, remaining balance, and payment status.</p></div><div className="public-feature"><div className="feature-icon"><Activity/></div><h3>Plan beyond today</h3><p>Give students clear repayment visibility and a path to review changing circumstances.</p></div></div>
+    <div className="public-callout"><div><div className="eyebrow">INITIAL PILOT FOCUS</div><h2>Start with urgent barriers. Build for the whole journey.</h2><p>The proposed pilot focuses on verified tuition gaps remaining after students apply for all available eligible non-interest-bearing aid. It would test urgent barriers that threaten registration or graduation, with semester-by-semester support as a longer-term goal.</p></div><Button onClick={()=>showNotice("Pilot inquiry is simulated. No message was sent.")}>Discuss a pilot <ArrowRight size={16}/></Button></div>
     <div className="fine-print public-disclaimer">Junnah is a product concept in development. No financing is currently offered through this website. Any future program is subject to legal, regulatory, university, and Sharia review.</div>
   </>;
 }
@@ -503,11 +505,12 @@ const audiencePages = {
     icon: GraduationCap,
     eyebrow: "STUDENT SUPPORT",
     title: "A clearer next step when tuition gets in the way.",
-    description: "Junnah is developing a university-connected way to help students understand and address eligible tuition shortfalls—with clear steps, human review, and proposed interest-free financing.",
+    description: "Junnah is developing a university-connected way to address eligible tuition gaps remaining after students apply for all available eligible non-interest-bearing aid—with clear steps, human review, and proposed interest-free financing.",
     action: "Explore the student demo",
     features: [
+      ["Apply eligible aid first", "Students must apply for all available eligible non-interest-bearing financial aid before Junnah would assess the remaining eligible tuition gap."],
       ["Start with a specific barrier", "The proposed first pilot focuses on verified final-semester shortfalls, registration holds, and graduation-clearance balances."],
-      ["Be reviewed as a person", "A proposed review considers the student's circumstances, available aid, and relevant evidence—not a credit score alone."],
+      ["Be reviewed as a person", "A proposed review considers the verified gap remaining after aid, the student's circumstances, and relevant evidence—not a credit score alone."],
       ["Understand every proposed cost", "The demo shows a $25 illustrative one-time administration fee due separately only if approved—not at submission or as part of financed principal. The amount and fee structure require validation and qualified review."]
     ],
     actionNote: "A sample application uses fictional information only. Junnah is not accepting applications or offering financing."
@@ -521,7 +524,7 @@ const audiencePages = {
     action: "Explore the university workflow",
     features: [
       ["Refer with context", "Give students a clearer path to raise an eligible financial barrier before a registration or graduation-processing deadline."],
-      ["Verify and coordinate", "Authorized staff can confirm the relevant balance and deadline, then follow case status and simulated payment coordination."],
+      ["Verify and coordinate", "Authorized staff can confirm aid applied, the remaining eligible tuition gap, and deadline, then follow case status and simulated payment coordination."],
       ["Measure before making claims", "A proposed small pilot would test the workflow and outcomes; retention gains, savings, and willingness to pay are not yet proven."]
     ],
     actionNote: "A first pilot is a proposal—not an existing partnership, commitment, or active financing program."
@@ -531,10 +534,10 @@ const audiencePages = {
     icon: HeartHandshake,
     eyebrow: "CHARITABLE IMPACT",
     title: "Help a student move forward—and show what happens next.",
-    description: "In the proposed model, charitable contributions support a separately governed pool for eligible student balances. Repaid principal may be recycled to help future students, subject to the program's rules and available funds.",
+    description: "In the proposed model, charitable contributions support a separately governed pool for eligible tuition gaps remaining after students apply for all available eligible non-interest-bearing aid. Repaid principal may be recycled subject to program rules and available funds.",
     action: "View the illustrative donor dashboard",
     features: [
-      ["Support a defined purpose", "The proposed pool would help address verified education-related balances, with payments coordinated directly with a university when approved."],
+      ["Support a defined purpose", "After the aid-first requirement is met, the proposed pool could help address a verified remaining eligible tuition gap, with payment coordinated directly with a university if approved."],
       ["See a fuller impact picture", "Reporting could show aggregate support, principal returned and recycled, available liquidity, and unrecovered balances—without exposing student identities."],
       ["Give with clear expectations", "Donations are not investments or refundable. Pool principal may be reduced by defaults, approved forgiveness, or other permitted losses."]
     ],

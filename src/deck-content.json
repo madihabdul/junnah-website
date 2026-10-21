@@ -47,7 +47,7 @@
         "body": "Working to cover tuition and living costs leaves less time for academics; when income falls short, a student may stop out."
       }
     ],
-    "note": "Junnah is a pre-validation concept; any future model depends on funding, an institutional partner, and appropriate legal, regulatory, financial, privacy, and qualified Sharia review."
+    "note": "These stories do not establish Junnah eligibility. A future program would require students to apply for all available eligible non-interest-bearing aid first and would consider only remaining verified eligible tuition gaps, subject to funding and review."
   },
   {
     "label": "04 / THE SUPPORT GAP",
@@ -68,7 +68,7 @@
       },
       {
         "title": "A complementary pathway",
-        "body": "Junnah is exploring a university-integrated model that could complement nonprofit aid and other resources—not replace them."
+        "body": "Students must first apply for all available eligible non-interest-bearing aid. Junnah would assess only the remaining eligible tuition gap and could complement—not replace—other support."
       }
     ],
     "note": "These are hypotheses to validate with nonprofit partners and students. Eligibility and funding models vary across organizations."
@@ -76,14 +76,14 @@
   {
     "label": "05 / SYSTEM ARCHITECTURE",
     "title": "Junnah is workflow infrastructure, not a chatbot or a loan marketplace",
-    "subtitle": "One connected system takes a student from shortfall to paid balance.",
+    "subtitle": "An aid-first workflow verifies the eligible tuition gap before any proposed financing.",
     "cards": [
-      {"title": "Identify the shortfall or new term."},
-      {"title": "University verifies amount and deadline"},
-      {"title": "Human reviewer assesses circumstances"},
-      {"title": "Student accepts documented, principal-only terms"},
-      {"title": "Junnah pays the university directly each semester"},
-      {"title": "Student tracks principal, repayment and hardship support"}
+      {"title": "Student submits a tuition-gap request", "body": "For a new term, shares school, amount, deadline, and available aid or aid-application information."},
+      {"title": "Verify aid and remaining gap", "body": "University confirms all available eligible aid was applied and verifies charges, balance, and deadline."},
+      {"title": "Review the case", "body": "A human reviewer assesses the remaining gap and circumstances."},
+      {"title": "Agree clear terms", "body": "Student reviews and accepts documented, principal-only terms."},
+      {"title": "Pay the university", "body": "Only if approved and funding is available."},
+      {"title": "Track and get support", "body": "Student follows principal, repayment, and hardship options."}
     ]
   },
   {
@@ -160,7 +160,7 @@
       },
       {
         "title": "Tuition paid upfront",
-        "body": "Eligible balances, subject to approval and funding"
+        "body": "Remaining eligible gap after aid, subject to approval and funding"
       },
       {
         "title": "Capital revolves",
@@ -215,7 +215,7 @@
       },
       {
         "title": "Balance resolution",
-        "body": "Approved cases paid directly to the university from the separate pool, subject to funding."
+        "body": "The separate pool may address a verified eligible tuition gap after available eligible non-interest-bearing aid is applied, subject to approval and funds."
       },
       {
         "title": "Reporting and accountability",
@@ -252,7 +252,58 @@
     "note": "Sharia compliance checks needed here to evaluate under a mudarabah or musharakah structure."
   },
   {
-    "label": "12 / PILOT SPECIFICATION",
+    "label": "12 / PROPOSED CAPITAL FRAMEWORK",
+    "title": "Match each dollar to its purpose and time horizon",
+    "subtitle": "A proposed framework separates near-term liquidity needs from capital that may be invested over longer periods.",
+    "cards": [
+      {
+        "title": "Bucket 1 · Tuition liquidity",
+        "body": "Funds for imminent university payments, expected withdrawals, and short-term repayment gaps. Prioritize capital preservation and ready access—not investment returns.",
+        "note": "Liquidity comes first for scheduled obligations and near-term needs."
+      },
+      {
+        "title": "Bucket 2 · Capital preservation",
+        "body": "Funds not needed immediately could be considered for appropriately screened, relatively low-risk, liquid assets aligned with Sharia principles, subject to qualified review.",
+        "note": "Lower risk is not no risk; asset values, access, and returns are not guaranteed."
+      },
+      {
+        "title": "Bucket 3 · Long-term growth",
+        "body": "Only genuine surplus with a sufficiently long time horizon could be considered for diversified growth investments after near-term obligations and reserves are covered.",
+        "note": "Greater potential upside also means potential losses and prolonged underperformance."
+      }
+    ],
+    "note": "Concept only—not an approved investment policy or investment advice. Invest only funds whose terms permit it; student principal and restricted gifts remain separately governed. Any allocation requires cash-flow, legal/fiduciary, custody, governance, and qualified Sharia review. Values, returns, and liquidity are not guaranteed."
+  },
+  {
+    "label": "13 / CASH-FLOW STRESS TEST",
+    "title": "Can the pool meet next semester's commitments if repayments are late?",
+    "subtitle": "Example model template · Opening pool + repayments received − tuition disbursed − other outflows = cash available for the next term.",
+    "cards": [
+      {
+        "title": "Opening available pool",
+        "body": "Set the initial pool size using liquid capital available for student support after restrictions and protected reserves."
+      },
+      {
+        "title": "Tuition commitments",
+        "body": "Multiply the average eligible gap per student after aid by the number funded, and map each university payment due date."
+      },
+      {
+        "title": "Repayment schedule",
+        "body": "Map principal due by student and date. Count repayments as cash only when received."
+      },
+      {
+        "title": "Defaults and delays",
+        "body": "Reduce expected inflows for realistic defaults and recovery; shift receipt dates in late-payment cases."
+      },
+      {
+        "title": "Next-semester coverage test",
+        "body": "At every due date, test whether cash on hand can meet committed eligible tuition payments if repayments arrive late."
+      }
+    ],
+    "note": "Run base and downside cases, including late/no repayments and higher defaults. This is a model template, not a forecast; pool size, student count, funding gaps, repayment terms, and loss assumptions still need validation."
+  },
+  {
+    "label": "14 / PILOT SPECIFICATION",
     "title": "A one-semester pilot with about 10 students tests the real workflow",
     "cards": [
       {
@@ -274,11 +325,15 @@
       {
         "title": "Illustrative budget",
         "body": "Dependent on university tuition, software/administration costs, and number of students in pilot."
+      },
+      {
+        "title": "Aid-first requirement",
+        "body": "Students must apply for all available eligible non-interest-bearing aid; the pilot assesses only the verified eligible tuition gap remaining afterward."
       }
     ]
   },
   {
-    "label": "13 / THE JUNNAH ECOSYSTEM",
+    "label": "15 / THE JUNNAH ECOSYSTEM",
     "title": "One coordinated experience across the support model",
     "cards": [
       {"title": "Student portal"},
@@ -288,7 +343,7 @@
     ]
   },
   {
-    "label": "14 / STAGE & PARTNERSHIP ASK",
+    "label": "16 / STAGE & PARTNERSHIP ASK",
     "title": "Where we are, and what we want from a partner",
     "cards": [
       {
