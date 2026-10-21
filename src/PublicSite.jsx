@@ -205,7 +205,7 @@ const studentProfiles = [
       "Throughout college, this student was their family's primary financial provider while working toward their degree. They accepted subsidized and unsubsidized federal student loans, working to pay off the unsubsidized portion as quickly as possible to minimize interest.",
       "When their final semester arrived, their remaining tuition balance was not covered by their loans. Despite working and supporting their family, they struggled to pay the balance on time, incurring additional late fees. The delay also held up the issuance of their diploma. One month after graduation, the university sold the unpaid balance to a collections agency without the student knowing. They spent years trying to repay it, prolonging the consequences of a financial shortfall well beyond graduation."
     ],
-    help: "If a tuition gap remains after a student applies for all available eligible non-interest-bearing aid, Junnah aims to help address that verified gap through proposed interest-free financing."
+    help: "Junnah aims to help cover this student's verified final-semester tuition gap through proposed interest-free financing, ideally before a delayed payment leads to late fees or holds up their diploma."
   },
   {
     title: "A Dream of Medicine. A Conflict of Conviction.",
@@ -214,7 +214,7 @@ const studentProfiles = [
       "Medical school brings years of additional education expenses. Without family support, interest-bearing loans may be the only financing option available to them, leaving them facing debt they may be unable to repay for years.",
       "For a student whose faith prohibits interest, the decision becomes more than financial. They must weigh the future they've worked toward against a financing system that conflicts with their deeply held beliefs."
     ],
-    help: "After a student applies for all available eligible non-interest-bearing aid, Junnah aims to assess any remaining eligible tuition gap for proposed interest-free financing."
+    help: "Junnah aims to help this student address eligible medical-school tuition costs through proposed interest-free financing, giving them a path to pursue their training without relying on interest-bearing student loans."
   },
   {
     title: "A Family That Can Afford College — Just Not All at Once",
@@ -223,7 +223,7 @@ const studentProfiles = [
       "University payment plans offer limited relief. Their repayment schedules can require balances to be paid in full before the semester ends, creating overlapping and aggressive payment obligations when several children are enrolled simultaneously.",
       "The family must make difficult choices. Siblings may attend different colleges based on affordability rather than academic fit, while others may forgo higher education rather than rely on interest-bearing financing that conflicts with their religious principles."
     ],
-    help: "If an eligible tuition gap remains after all available eligible non-interest-bearing aid is applied, Junnah aims to offer a more manageable proposed payment schedule for that gap."
+    help: "Junnah aims to help this family manage overlapping upfront tuition costs through proposed interest-free financing and a more manageable payment schedule, so school choices can better reflect each sibling's goals."
   },
   {
     title: "Working to Stay in School",
@@ -232,7 +232,7 @@ const studentProfiles = [
       "Living on campus may be financially out of reach, further limiting their ability to participate in university life. When working enough hours still isn't sufficient to cover the next semester's costs, the student may have to take time away from school to earn enough to return.",
       "What begins as a way to finance an education can become a cycle of working, stopping out, and trying to return — extending the time it takes to graduate and making academic progress more difficult."
     ],
-    help: "After students apply for all available eligible non-interest-bearing aid, Junnah aims to assess any remaining eligible tuition gap and reduce the payment pressure that can interrupt their studies."
+    help: "Junnah aims to help this student address an eligible tuition gap before it forces them to pause their studies, easing some of the financial pressure to work through each semester."
   }
 ];
 
