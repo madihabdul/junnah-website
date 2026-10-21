@@ -8,13 +8,43 @@ struct DeckCard: Decodable {
     let note: String?
 }
 
+struct GrowthFlowStage: Decodable {
+    let title: String
+    let body: String
+}
+
+struct RevenueStream: Decodable {
+    let title: String
+    let body: String
+    let emphasis: Bool?
+}
+
+struct RevenueScenario: Decodable {
+    let universities: Int
+    let students: Int
+    let revenue: Int
+}
+
+struct GrowthChart: Decodable {
+    let formula: String
+    let assumptions: String
+    let scenarios: [RevenueScenario]
+    let definitions: String
+}
+
 struct DeckSlide: Decodable {
+    let type: String?
     let label: String
     let title: String
     let subtitle: String?
     let note: String?
     let cover: Bool?
     let cards: [DeckCard]?
+    let flow: [GrowthFlowStage]?
+    let revenueStreams: [RevenueStream]?
+    let chart: GrowthChart?
+    let fundingNote: String?
+    let takeaway: String?
 }
 
 private let forest = NSColor(calibratedRed: 18 / 255, green: 61 / 255, blue: 49 / 255, alpha: 1)
@@ -48,6 +78,8 @@ final class SlidePageView: NSView {
         super.draw(dirtyRect)
         if slide.cover == true {
             drawCover()
+        } else if slide.type == "growth-model" {
+            drawGrowthModelSlide()
         } else {
             drawContentSlide()
         }
@@ -98,6 +130,146 @@ final class SlidePageView: NSView {
             drawNote(note)
         }
     }
+
+        private func drawGrowthModelSlide() {
+            paper.setFill()
+            bounds.fill()
+            _ = drawText(slide.label.uppercased(), in: NSRect(x: 58, y: 31, width: 570, height: 20), size: 9, minimumSize: 8, weight: .bold, color: muted, tracking: 1.4)
+            drawBrand(at: NSPoint(x: 820, y: 25), light: false)
+            let rule = NSBezierPath()
+            rule.move(to: NSPoint(x: 58, y: 58))
+            rule.line(to: NSPoint(x: 902, y: 58))
+            line.setStroke()
+            rule.lineWidth = 1
+            rule.stroke()
+
+            _ = drawText(slide.title, in: NSRect(x: 58, y: 72, width: 844, height: 46), size: 27, minimumSize: 21, weight: .bold, color: forest)
+            _ = drawText(slide.subtitle ?? "", in: NSRect(x: 60, y: 120, width: 838, height: 34), size: 11, minimumSize: 9, weight: .regular, color: muted)
+            drawGrowthFlow(slide.flow ?? [])
+            drawRevenueStreams(slide.revenueStreams ?? [])
+            if let chart = slide.chart {
+                drawRevenueScenarios(chart)
+            }
+            if let fundingNote = slide.fundingNote {
+                drawGrowthFundingNote(fundingNote)
+            }
+            if let takeaway = slide.takeaway {
+                drawGrowthTakeaway(takeaway)
+            }
+            if let note = slide.note {
+                _ = drawText(note, in: NSRect(x: 58, y: 511, width: 844, height: 26), size: 7.5, minimumSize: 6.5, weight: .medium, color: muted)
+            }
+        }
+
+        private func drawGrowthFlow(_ stages: [GrowthFlowStage]) {
+            let top: CGFloat = 165
+            let width: CGFloat = 198
+            let height: CGFloat = 82
+            let gap: CGFloat = 18
+            for (index, stage) in stages.enumerated() {
+                let x = 58 + CGFloat(index) * (width + gap)
+                let rect = NSRect(x: x, y: top, width: width, height: height)
+                let path = NSBezierPath(roundedRect: rect, xRadius: 8, yRadius: 8)
+                (index.isMultiple(of: 2) ? NSColor.white : sage).setFill()
+                path.fill()
+                line.setStroke()
+                path.lineWidth = 1
+                path.stroke()
+                _ = drawText(String(format: "%02d", index + 1), in: NSRect(x: x + 12, y: top + 8, width: 32, height: 14), size: 8, minimumSize: 8, weight: .bold, color: gold, tracking: 1)
+                _ = drawText(stage.title, in: NSRect(x: x + 12, y: top + 25, width: width - 24, height: 24), size: 11, minimumSize: 9, weight: .bold, color: forest)
+                _ = drawText(stage.body, in: NSRect(x: x + 12, y: top + 51, width: width - 24, height: 25), size: 8, minimumSize: 7, weight: .regular, color: muted)
+                if index < stages.count - 1 {
+                    let arrowX = x + width + 2
+                    let arrowY = top + height / 2
+                    let arrow = NSBezierPath()
+                    arrow.move(to: NSPoint(x: arrowX, y: arrowY))
+                    arrow.line(to: NSPoint(x: arrowX + 12, y: arrowY))
+                    arrow.move(to: NSPoint(x: arrowX + 7, y: arrowY - 5))
+                    arrow.line(to: NSPoint(x: arrowX + 12, y: arrowY))
+                    arrow.line(to: NSPoint(x: arrowX + 7, y: arrowY + 5))
+                    gold.setStroke()
+                    arrow.lineWidth = 1.5
+                    arrow.stroke()
+                }
+            }
+        }
+
+        private func drawRevenueStreams(_ streams: [RevenueStream]) {
+            let panel = NSRect(x: 58, y: 259, width: 354, height: 164)
+            let panelPath = NSBezierPath(roundedRect: panel, xRadius: 8, yRadius: 8)
+            NSColor.white.setFill()
+            panelPath.fill()
+            line.setStroke()
+            panelPath.stroke()
+            _ = drawText("REVENUE MODEL · PROPOSED", in: NSRect(x: 72, y: 269, width: 300, height: 15), size: 8, minimumSize: 8, weight: .bold, color: muted, tracking: 1)
+            for (index, stream) in streams.enumerated() {
+                let y = 292 + CGFloat(index) * 42
+                if stream.emphasis == true {
+                    NSColor(calibratedRed: 180 / 255, green: 155 / 255, blue: 101 / 255, alpha: 1).setFill()
+                    NSBezierPath(rect: NSRect(x: 72, y: y, width: 2, height: 37)).fill()
+                }
+                _ = drawText(stream.title, in: NSRect(x: 80, y: y, width: 315, height: 16), size: 10, minimumSize: 8, weight: .bold, color: stream.emphasis == true ? forest : muted)
+                _ = drawText(stream.body, in: NSRect(x: 80, y: y + 16, width: 315, height: 24), size: 8, minimumSize: 7, weight: .regular, color: muted)
+            }
+        }
+
+        private func drawRevenueScenarios(_ chart: GrowthChart) {
+            let panel = NSRect(x: 424, y: 259, width: 478, height: 164)
+            let panelPath = NSBezierPath(roundedRect: panel, xRadius: 8, yRadius: 8)
+            NSColor.white.setFill()
+            panelPath.fill()
+            line.setStroke()
+            panelPath.stroke()
+            _ = drawText("ILLUSTRATIVE UNIVERSITY REVENUE · NOT A PROJECTION", in: NSRect(x: 438, y: 269, width: 445, height: 15), size: 7.5, minimumSize: 7, weight: .bold, color: muted, tracking: 0.7)
+            _ = drawText(chart.formula, in: NSRect(x: 438, y: 287, width: 445, height: 18), size: 11, minimumSize: 9, weight: .bold, color: forest)
+            _ = drawText(chart.assumptions, in: NSRect(x: 438, y: 305, width: 445, height: 15), size: 7.5, minimumSize: 7, weight: .regular, color: muted)
+
+            let maxRevenue = max(1, chart.scenarios.map(\.revenue).max() ?? 1)
+            let barX: CGFloat = 553
+            let maxBarWidth: CGFloat = 225
+            for (index, scenario) in chart.scenarios.enumerated() {
+                let y = 328 + CGFloat(index) * 24
+                let label = "\(scenario.universities) \(scenario.universities == 1 ? "university" : "universities")"
+                _ = drawText(label, in: NSRect(x: 438, y: y, width: 108, height: 13), size: 8, minimumSize: 7, weight: .semibold, color: muted)
+                _ = drawText("\(scenario.students) students", in: NSRect(x: 438, y: y + 11, width: 108, height: 11), size: 7, minimumSize: 6.5, weight: .regular, color: muted)
+
+                let track = NSRect(x: barX, y: y + 6, width: maxBarWidth, height: 8)
+                let trackPath = NSBezierPath(roundedRect: track, xRadius: 4, yRadius: 4)
+                sage.setFill()
+                trackPath.fill()
+                let fill = NSRect(x: barX, y: y + 6, width: maxBarWidth * CGFloat(scenario.revenue) / CGFloat(maxRevenue), height: 8)
+                let fillPath = NSBezierPath(roundedRect: fill, xRadius: 4, yRadius: 4)
+                forestLight.setFill()
+                fillPath.fill()
+                _ = drawText(formatMoney(scenario.revenue), in: NSRect(x: 787, y: y + 2, width: 96, height: 16), size: 8, minimumSize: 7, weight: .bold, color: forest, alignment: .right)
+            }
+            _ = drawText(chart.definitions, in: NSRect(x: 438, y: 407, width: 445, height: 14), size: 7, minimumSize: 6.5, weight: .regular, color: muted)
+        }
+
+        private func drawGrowthFundingNote(_ note: String) {
+            let rect = NSRect(x: 58, y: 431, width: 844, height: 35)
+            let path = NSBezierPath(roundedRect: rect, xRadius: 6, yRadius: 6)
+            NSColor(calibratedRed: 250 / 255, green: 248 / 255, blue: 241 / 255, alpha: 1).setFill()
+            path.fill()
+            NSColor(calibratedRed: 229 / 255, green: 220 / 255, blue: 196 / 255, alpha: 1).setStroke()
+            path.stroke()
+            _ = drawText("FUNDING AVAILABILITY", in: NSRect(x: 70, y: 436, width: 160, height: 12), size: 7.5, minimumSize: 7, weight: .bold, color: muted, tracking: 0.5)
+            _ = drawText(note, in: NSRect(x: 70, y: 448, width: 820, height: 14), size: 7.5, minimumSize: 6.5, weight: .regular, color: muted)
+        }
+
+        private func drawGrowthTakeaway(_ takeaway: String) {
+            let rect = NSRect(x: 58, y: 474, width: 844, height: 30)
+            let path = NSBezierPath(roundedRect: rect, xRadius: 6, yRadius: 6)
+            NSColor(calibratedRed: 239 / 255, green: 243 / 255, blue: 235 / 255, alpha: 1).setFill()
+            path.fill()
+            NSColor(calibratedRed: 180 / 255, green: 155 / 255, blue: 101 / 255, alpha: 1).setFill()
+            NSBezierPath(rect: NSRect(x: rect.minX, y: rect.minY, width: 3, height: rect.height)).fill()
+            _ = drawText(takeaway, in: NSRect(x: 72, y: 478, width: 815, height: 21), size: 8.5, minimumSize: 7.5, weight: .bold, color: forest)
+        }
+
+        private func formatMoney(_ amount: Int) -> String {
+            "$" + NumberFormatter.localizedString(from: NSNumber(value: amount), number: .decimal)
+        }
 
     private func drawCards(_ cards: [DeckCard], top: CGFloat, bottom: CGFloat) {
         let columns = cards.count <= 2 || cards.count == 4 ? 2 : 3

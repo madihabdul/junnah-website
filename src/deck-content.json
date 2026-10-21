@@ -16,7 +16,7 @@
       },
       {
         "title": "Proactive continuity",
-        "body": "Accompany students from their first semester through graduation, resolving balances early before registration holds become crises."
+        "body": "Aim to support students throughout their education, as funding allows, resolving balances early before registration holds become crises."
       },
       {
         "title": "Protecting the student experience",
@@ -149,7 +149,60 @@
     "note": "University willingness to pay and exact SaaS contract amounts remain unvalidated hypotheses for pilot testing."
   },
   {
-    "label": "09 / HOW UNIVERSITIES BENEFIT",
+    "type": "growth-model",
+    "label": "09 / SCALABLE UNIVERSITY MODEL",
+    "title": "More university partners. More recurring revenue. Greater impact.",
+    "subtitle": "Junnah connects university tuition payments, student financing, and institutional revenue in one proposed platform.",
+    "flow": [
+      {
+        "title": "University partnerships",
+        "body": "Platform and service fees"
+      },
+      {
+        "title": "Tuition paid upfront",
+        "body": "Eligible balances, subject to approval and funding"
+      },
+      {
+        "title": "Capital revolves",
+        "body": "Principal repayments may replenish the pool"
+      },
+      {
+        "title": "Network expands",
+        "body": "More contracts; potential wider access"
+      }
+    ],
+    "revenueStreams": [
+      {
+        "title": "Recurring SaaS fees",
+        "body": "University payments for ongoing platform access.",
+        "emphasis": true
+      },
+      {
+        "title": "Per-student service fees",
+        "body": "Institutional revenue that can grow with students served.",
+        "emphasis": true
+      },
+      {
+        "title": "Student administration fees",
+        "body": "Proposed one-time agreement-administration fee to cover administration, not investor returns; subject to validation and review."
+      }
+    ],
+    "chart": {
+      "formula": "Annual university revenue = (U × S) + (N × F)",
+      "assumptions": "Illustrative only: S = $20,000/year; F = $250/student",
+      "scenarios": [
+        {"universities": 1, "students": 100, "revenue": 45000},
+        {"universities": 5, "students": 500, "revenue": 225000},
+        {"universities": 10, "students": 1000, "revenue": 450000}
+      ],
+      "definitions": "U = university partners · N = students served annually"
+    },
+    "fundingNote": "Early on, Junnah may not be able to cover each student's full eligible balance. As revenue and financing capacity grow, our goal is to support students throughout their education, subject to available funds, approval, and university participation.",
+    "takeaway": "A growing university network can expand recurring institutional revenue while a revolving financing pool helps fund successive student cohorts.",
+    "note": "Illustrative scenarios, not projections. Revenue is not profit or investor return; university revenue and pool capital are separate. Outcomes depend on adoption, repayment, available funding, costs, and final agreements. Student fees are excluded."
+  },
+  {
+    "label": "10 / HOW UNIVERSITIES BENEFIT",
     "title": "Universities gain a structured path for unresolved balances",
     "cards": [
       {
@@ -176,7 +229,7 @@
     "note": "Pricing and value are unvalidated and must be tested with each institution. Junnah will not eliminate collections in every case. The university pays for software and administration only, separate from charitable funds and student repayments."
   },
   {
-    "label": "10 / FINANCIAL RING-FENCING",
+    "label": "11 / FINANCIAL RING-FENCING",
     "title": "Three kinds of money stay strictly separate",
     "subtitle": "A proposed tri-vault structure is intended to separate financial flows; Sharia compliance and regulatory integrity require qualified review.",
     "cards": [
@@ -199,7 +252,7 @@
     "note": "Sharia compliance checks needed here to evaluate under a mudarabah or musharakah structure."
   },
   {
-    "label": "11 / PILOT SPECIFICATION",
+    "label": "12 / PILOT SPECIFICATION",
     "title": "A one-semester pilot with about 10 students tests the real workflow",
     "cards": [
       {
@@ -225,7 +278,7 @@
     ]
   },
   {
-    "label": "12 / THE JUNNAH ECOSYSTEM",
+    "label": "13 / THE JUNNAH ECOSYSTEM",
     "title": "One coordinated experience across the support model",
     "cards": [
       {"title": "Student portal"},
@@ -235,7 +288,7 @@
     ]
   },
   {
-    "label": "13 / STAGE & PARTNERSHIP ASK",
+    "label": "14 / STAGE & PARTNERSHIP ASK",
     "title": "Where we are, and what we want from a partner",
     "cards": [
       {

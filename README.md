@@ -45,7 +45,7 @@ For the repository `madihabdul/junnah-website`, the homepage is `https://madihab
 
 - Investor-facing public homepage with mission, proposed workflow, prototype preview, pilot validation notes, and navigation
 - Standalone, keyboard-accessible presentation-style concept deck
-- Downloadable, website-styled 13-slide PDF deck, rebuilt from the provided slide content without the Gamma watermark
+- Downloadable, website-styled 14-slide PDF deck, rebuilt from the provided slide content without the Gamma watermark
 - Student portal and application submission modal
 - Six synthetic student circumstances
 - Case manager queue, verification, notes, and simulated decisions
@@ -62,7 +62,7 @@ For the repository `madihabdul/junnah-website`, the homepage is `https://madihab
 
 Start from the public homepage. Read the mission and workflow, then choose **Explore the demo** or **Open the pitch deck** to see those experiences separately.
 
-The interactive pitch deck follows the 11-slide content in `src/deck-content.json`. To regenerate its downloadable PDF, run `npm run build:deck` on macOS with Swift and PDFKit available. The generated file is `public/Junnah_Deck_Redesigned.pdf`.
+The interactive pitch deck follows the 14-slide content in `src/deck-content.json`. To regenerate its downloadable PDF, run `npm run build:deck` on macOS with Swift and PDFKit available. The generated file is `public/Junnah_Deck_Redesigned.pdf`.
 
 1. Open the product demo and choose the Student portal.
 2. Select a sample application or click **New application**.

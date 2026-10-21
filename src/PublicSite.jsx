@@ -276,6 +276,55 @@ function StudentStoriesPage() {
   </div>;
 }
 
+function GrowthModelSlide({ slide }) {
+  const maximumRevenue = Math.max(...slide.chart.scenarios.map(({ revenue }) => revenue));
+  const formatMoney = value => new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    maximumFractionDigits: 0
+  }).format(value);
+
+  return <div className="deck-growth">
+    <div className="deck-growth-flow" aria-label="Proposed growth flywheel">
+      {slide.flow.map(({ title, body }, index) => <React.Fragment key={title}>
+        <article className="deck-growth-step">
+          <span>{String(index + 1).padStart(2, "0")}</span>
+          <h2>{title}</h2>
+          <p>{body}</p>
+        </article>
+        {index < slide.flow.length - 1 && <ArrowRight className="deck-growth-arrow" size={17} aria-hidden="true" />}
+      </React.Fragment>)}
+    </div>
+    <div className="deck-growth-details">
+      <section className="deck-revenue-model">
+        <div className="deck-growth-eyebrow">REVENUE MODEL · PROPOSED</div>
+        {slide.revenueStreams.map(({ title, body, emphasis }) => <article className={`deck-revenue-stream${emphasis ? " emphasized" : ""}`} key={title}>
+          <h3>{title}</h3><p>{body}</p>
+        </article>)}
+      </section>
+      <section className="deck-growth-chart">
+        <div className="deck-growth-eyebrow">ILLUSTRATIVE UNIVERSITY REVENUE · NOT A PROJECTION</div>
+        <strong className="deck-growth-formula">{slide.chart.formula}</strong>
+        <div className="deck-growth-assumptions">{slide.chart.assumptions}</div>
+        <div className="deck-scenario-list">
+          {slide.chart.scenarios.map(({ universities, students, revenue }) => <div className="deck-scenario" key={universities}>
+            <span className="deck-scenario-label">{universities} {universities === 1 ? "university" : "universities"}<small>{students.toLocaleString()} students</small></span>
+            <span className="deck-scenario-track"><i style={{ width: `${revenue / maximumRevenue * 100}%` }} /></span>
+            <strong>{formatMoney(revenue)}</strong>
+          </div>)}
+        </div>
+        <small className="deck-growth-definitions">{slide.chart.definitions}</small>
+      </section>
+    </div>
+    <div className="deck-growth-funding">
+      <strong>Funding availability</strong>
+      <span>{slide.fundingNote}</span>
+    </div>
+    <div className="deck-growth-takeaway">{slide.takeaway}</div>
+    <p className="deck-growth-disclaimer">{slide.note}</p>
+  </div>;
+}
+
 function DeckPage() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const slide = slides[currentSlide];
@@ -311,6 +360,11 @@ function DeckPage() {
               <p>{slide.subtitle}</p>
               <span>{slide.note}</span>
             </div>
+            <div className="deck-slide-brand"><span>j</span> junnah<span className="brand-period">.</span></div>
+          </> : slide.type === "growth-model" ? <>
+            <h1>{slide.title}</h1>
+            <p className="deck-slide-body">{slide.subtitle}</p>
+            <GrowthModelSlide slide={slide} />
             <div className="deck-slide-brand"><span>j</span> junnah<span className="brand-period">.</span></div>
           </> : <>
             <h1>{slide.title}</h1>
