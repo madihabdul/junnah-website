@@ -50,28 +50,24 @@
     "note": "These stories do not establish Junnah eligibility. A future program would require students to apply for all available eligible non-interest-bearing aid first and would consider only remaining verified eligible tuition gaps, subject to funding and review."
   },
   {
-    "label": "04 / THE SUPPORT GAP",
-    "title": "Shared mission, different constraints",
-    "subtitle": "Community nonprofits and Junnah seek to help students—but eligibility and available resources can shape who receives support.",
+    "label": "04 / MARKET GAP & EXISTING DEMAND",
+    "title": "Demand exists. Funding is the bottleneck.",
+    "subtitle": "Students already seek interest-free education support, but existing funding sources may not meet every eligible student's need.",
     "cards": [
       {
-        "title": "Character-based assessments",
-        "body": "Some programs consider character or other eligibility criteria. Students who do not meet those criteria may still face an urgent education balance."
+        "title": "Established demand",
+        "body": "Students already turn to Muslim financial institutions and charitable organizations for interest-free education funding."
       },
       {
-        "title": "Donation-dependent capacity",
-        "body": "For donation-supported programs, available aid may not cover a student's full verified need. Funding levels and donor restrictions can affect how much support is available and when."
+        "title": "Limited capital",
+        "body": "Community funding pools and charitable programs may be unable to meet the needs of every eligible student."
       },
       {
-        "title": "Lengthy reviews and separate paperwork",
-        "body": "Some aid pathways can involve extended review and separate documentation. Junnah is exploring a school-connected intake that starts with one simple form and coordinates verification with the institution, while keeping human review."
-      },
-      {
-        "title": "A complementary pathway",
-        "body": "Students must first apply for all available eligible non-interest-bearing aid. Junnah would assess only the remaining eligible tuition gap and could complement—not replace—other support."
+        "title": "The gap Junnah addresses",
+        "body": "Junnah partners directly with universities to fund tuition upfront, giving students an interest-free repayment option while helping institutions receive tuition payments earlier."
       }
     ],
-    "note": "These are hypotheses to validate with nonprofit partners and students. Eligibility and funding models vary across organizations."
+    "note": "Junnah is an early-stage concept. University partnerships, funding capacity, and the scale of unmet need remain to be validated."
   },
   {
     "label": "05 / SYSTEM ARCHITECTURE",
@@ -229,27 +225,27 @@
     "note": "Pricing and value are unvalidated and must be tested with each institution. Junnah will not eliminate collections in every case. The university pays for software and administration only, separate from charitable funds and student repayments."
   },
   {
-    "label": "11 / FINANCIAL RING-FENCING",
-    "title": "Three kinds of money stay strictly separate",
-    "subtitle": "A proposed tri-vault structure is intended to separate financial flows; Sharia compliance and regulatory integrity require qualified review.",
+    "label": "11 / WHAT JUNNAH IS — AND ISN'T",
+    "title": "Not Charity. Not Interest-Bearing Debt. A Different Model.",
+    "subtitle": "It is a proposed revolving student-financing fund: principal repayments may support future students, while university revenue is intended to fund operations. Philanthropic contributions may supplement the pool; long-term self-sustainability remains unproven.",
     "cards": [
       {
-        "title": "Vault I · Charitable Pool / Student Financing",
-        "body": "Philanthropic donations and institutional gifts fund student principal directly. Repayments recycle to future eligible students under the pool's rules.",
-        "note": "Recycled capital; subject to default or forgiveness. Never guaranteed. Meant to serve as a Sadaqa Jariyah for donors."
+        "title": "Vault I · Revolving Student-Financing Pool",
+        "body": "May include philanthropic contributions and other permitted capital. Pays approved eligible tuition balances upfront; students repay principal under agreed terms.",
+        "note": "Repayments may be recycled for future students. Defaults, hardship relief, and fund restrictions can reduce available capital."
       },
       {
         "title": "Vault II · Operating Equity / Investor Capital",
-        "body": "Funds software engineering, compliance, operations, team payroll, and revolving fund. Equity investors hold claims solely against operating company value.",
-        "note": "Investors accept genuine business risk in exchange for a share of actual profits; they are not promised a fixed return, and student principal repayments remain entirely separate."
+        "body": "Funds software engineering, compliance, operations, and team payroll. Any investment in the student-financing pool would be separately structured and governed.",
+        "note": "Investors accept genuine business risk for a share of actual profits, not a fixed return. Student principal repayments remain separate from company revenue."
       },
       {
         "title": "Vault III · Earned Revenue / University Contracts",
         "body": "Commercial software licenses and institutional servicing fees paid by university partners for workflow infrastructure and retention management.",
-        "note": "Operating revenue stream sustaining the management company."
+        "note": "Intended operating revenue for the management company; commercial viability still needs validation."
       }
     ],
-    "note": "Sharia compliance checks needed here to evaluate under a mudarabah or musharakah structure."
+    "note": "Proposed structure; legal, regulatory, accounting, and qualified Sharia review required. A revolving model does not guarantee the fund or company will become self-sustaining."
   },
   {
     "label": "12 / PROPOSED CAPITAL FRAMEWORK",
