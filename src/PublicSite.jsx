@@ -102,7 +102,6 @@ function PublicHeader({ currentView = "home" }) {
       </button>
       <nav className={`public-nav${menuOpen ? " public-nav-open" : ""}`} aria-label="Main navigation">
         <a href={homeAnchor("mission")} onClick={() => setMenuOpen(false)}>Our mission</a>
-        <a href={homeAnchor("founder")} onClick={() => setMenuOpen(false)}>Founder</a>
         <a href={homeAnchor("workflow")} onClick={() => setMenuOpen(false)}>Workflow</a>
         <a href="?view=stories" onClick={() => setMenuOpen(false)}>Student stories</a>
         <a href={homeAnchor("demo")} onClick={() => setMenuOpen(false)}>Product demo</a>
@@ -133,7 +132,7 @@ function HomePage() {
         <div className="public-container public-hero-inner">
           <div className="public-hero-copy">
             <div className="public-kicker"><span /> A STUDENT SUPPORT CONCEPT</div>
-            <h1>Make room for students to move <em>forward.</em></h1>
+            <h1>Your future shouldn't cost you <em>your principles</em></h1>
             <p className="public-hero-lede">Junnah is exploring a university-integrated, Sharia-guided approach to help students navigate education costs—with clarity, dignity, and care.</p>
             <div className="public-hero-actions">
               <a className="public-button public-button-light" href="#workflow">See the proposed workflow <ArrowRight size={17} /></a>
