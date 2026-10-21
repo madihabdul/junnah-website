@@ -25,6 +25,24 @@
 .application-fee-summary small{color:#9a804b;font-family:"DM Sans",sans-serif;font-size:8px;font-weight:700}
 .application-fee-summary p{margin:7px 0 0;color:#827d69;font-size:8px;line-height:1.65}
 .application-fee-review{margin-top:16px}
+.university-finance-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.55fr);gap:13px;margin-bottom:26px}
+.university-invoice-card{min-width:0;padding:17px}
+.university-finance-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.university-finance-heading .welcome-kicker{margin-bottom:7px}
+.university-finance-heading h3{margin:0;color:#304338;font-size:14px}
+.university-finance-heading p{margin:5px 0 0;color:#849087;font-size:9px;line-height:1.5}
+.university-finance-heading>.pill{flex-shrink:0}
+.university-invoice-lines{display:grid;gap:11px;margin-top:17px}
+.university-invoice-lines>div,.university-invoice-total{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.university-invoice-lines>div>span{display:flex;flex-direction:column;gap:4px;color:#59695e;font-size:10px;font-weight:700}
+.university-invoice-lines small{color:#8a948d;font-size:8px;font-weight:500}
+.university-invoice-lines strong{color:#344b3a;font-size:11px}
+.university-invoice-total{margin-top:14px;padding-top:12px;border-top:1px solid #e7ece6;color:#45594a;font-size:10px;font-weight:700}
+.university-invoice-total strong{color:#234634;font-family:Manrope,sans-serif;font-size:18px}
+.university-invoice-card>.fine-print{margin:10px 0 0}
+.university-funding-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;min-width:0}
+.university-funding-metrics .metric{padding:14px 13px;min-width:0}
+.university-funding-metrics .metric-value{font-size:20px}
 .application-path-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
 .application-path{display:grid;grid-template-columns:24px minmax(0,1fr);align-items:center;column-gap:10px;row-gap:4px;min-width:0;padding:12px 13px;border:1px solid #e3e9e2;border-radius:9px;background:#fff;color:#435248;text-align:left;transition:background .15s,border-color .15s,box-shadow .15s}
 .application-path:hover{border-color:#b9cfbc;background:#f9fbf8}
@@ -75,7 +93,29 @@
 .audience-bottom p{max-width:700px;margin:6px 0 0;color:#849087;font-size:9px;line-height:1.7}
 .audience-bottom .btn{flex-shrink:0}
 .audience-disclaimer{margin:13px 0 0;color:#919b94;font-size:9px;line-height:1.7}
+.investor-profile{margin-bottom:16px}
+.investor-profile-header{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:20px}
+.investor-identity{display:flex;align-items:center;gap:12px;min-width:0}
+.investor-avatar{width:42px;height:42px;display:grid;place-items:center;flex-shrink:0;border-radius:12px;background:#eaf2ea;color:#3e7650;font-family:Manrope,sans-serif;font-size:13px;font-weight:800}
+.investor-identity h3{margin:0;color:#304338;font-size:14px}
+.investor-identity p{margin:5px 0 0;color:#849087;font-size:10px}
+.investor-account-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.investor-account-item{display:flex;flex-direction:column;align-items:flex-start;min-width:0;min-height:112px;padding:15px;border:1px solid #e7ece6;border-radius:9px;background:#f8faf7}
+.investor-account-item>span{color:#77847b;font-size:10px;font-weight:700}
+.investor-account-item>strong{margin-top:13px;color:#253d30;font-family:Manrope,sans-serif;font-size:24px;font-weight:800;letter-spacing:-.7px}
+.investor-account-item>small{margin-top:5px;color:#87928a;font-size:9px;line-height:1.5}
+.investor-payment-item{border-color:#dce9dc;background:#f0f6ef}
+.investor-payment-item>strong{color:#25613e}
+.investor-next-payment{display:flex;align-items:center;gap:12px;margin-top:12px;padding:14px 15px;border:1px solid #e6ebe5;border-radius:9px;background:#fff}
+.investor-payment-icon{width:34px;height:34px;display:grid;place-items:center;flex-shrink:0;border-radius:9px;background:#f1f5ef;color:#588064}
+.investor-payment-copy{display:flex;flex:1;flex-direction:column;gap:5px;min-width:0}
+.investor-payment-copy>span{color:#77847b;font-size:9px;font-weight:700}
+.investor-payment-copy>strong{color:#263e31;font-size:12px}
+.investor-separation-note{margin:0 0 27px}
 @media(max-width:1200px){.institution-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:1100px){.university-finance-grid{grid-template-columns:1fr}.university-funding-metrics{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:1000px){.audience-hero{grid-template-columns:minmax(0,1fr) 230px;padding:29px}.audience-hero-copy h2{font-size:28px}.audience-floating-card{right:-5px}}
-@media(max-width:720px){.audience-switcher{grid-template-columns:repeat(2,minmax(0,1fr))}.audience-hero{grid-template-columns:1fr;gap:0;padding:24px}.audience-hero-copy h2{font-size:26px}.audience-hero-art{height:190px}.audience-orbit-outer{width:175px;height:175px}.audience-orbit-inner{width:130px;height:130px}.audience-icon-tile{width:88px;height:88px}.audience-floating-card{right:calc(50% - 134px);bottom:16px}.audience-feature-grid{grid-template-columns:1fr}.audience-feature{min-height:0}.audience-bottom{align-items:flex-start;flex-direction:column}.audience-bottom .btn{width:100%}.institution-grid{grid-template-columns:1fr}.institution-card{min-height:155px}.institution-heading{align-items:flex-start;flex-direction:column}}
+@media(max-width:720px){.audience-switcher{grid-template-columns:repeat(2,minmax(0,1fr))}.audience-hero{grid-template-columns:1fr;gap:0;padding:24px}.audience-hero-copy h2{font-size:26px}.audience-hero-art{height:190px}.audience-orbit-outer{width:175px;height:175px}.audience-orbit-inner{width:130px;height:130px}.audience-icon-tile{width:88px;height:88px}.audience-floating-card{right:calc(50% - 134px);bottom:16px}.audience-feature-grid{grid-template-columns:1fr}.audience-feature{min-height:0}.audience-bottom{align-items:flex-start;flex-direction:column}.audience-bottom .btn{width:100%}.institution-grid{grid-template-columns:1fr}.institution-card{min-height:155px}.institution-heading{align-items:flex-start;flex-direction:column}.university-funding-metrics{grid-template-columns:1fr}}
+@media(max-width:850px){.investor-account-grid{grid-template-columns:1fr}}
+@media(max-width:560px){.investor-profile-header{align-items:flex-start;flex-direction:column}.investor-account-item{min-height:96px}.investor-account-item>strong{margin-top:9px}.investor-next-payment{align-items:flex-start;flex-wrap:wrap}.investor-next-payment>.pill{margin-left:46px}}
 @media(max-width:520px){.application-path-grid{grid-template-columns:1fr}.application-path{padding:12px}}

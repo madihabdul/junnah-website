@@ -132,7 +132,7 @@ const navGroups = [
     { id: "university", label: "University portal", icon: Building2 }
   ]},
   { label: "PREVIEW", items: [
-    { id: "investor", label: "Capital overview", icon: Activity },
+    { id: "investor", label: "Individual investor", icon: Activity },
     { id: "donor", label: "Donor impact", icon: HeartHandshake },
     { id: "website", label: "University offering", icon: BookOpen }
   ]},
@@ -267,13 +267,13 @@ function App() {
     student: ["STUDENT EXPERIENCE", "Your education, with a plan", "Track your application, understand your options, and see your next steps."],
     case: ["OPERATIONS", "Case management", "A consistent review process for each student's circumstances."],
     university: ["INSTITUTION PARTNER", "University workspace", "Coordinate verified balances, referrals, and payment status in one place."],
-    investor: ["CAPITAL & OPERATIONS", "Capital overview", "A transparent view of illustrative pool activity and operating-company economics."],
+    investor: ["INVESTOR SCENARIOS", "Individual investor", "Explore hypothetical investment and profit-participation scenarios. No return or investment terms are offered."],
     donor: ["CHARITABLE IMPACT", "Giving that keeps moving", "See how a proposed revolving charitable pool could support students over time."],
     website: ["PARTNER WITH JUNNAH", "Resolve tuition gaps earlier", "A university-integrated approach to financial barriers that can disrupt student progress."],
     "audience-student": ["FOR STUDENTS", "A clearer next step", "Explore the proposed student support model and try a synthetic application in the demo."],
     "audience-university": ["FOR UNIVERSITIES", "A coordinated workflow", "Explore referrals, balance verification, payment coordination, and a proposed pilot."],
     "audience-donor": ["FOR DONORS", "Giving with transparency", "Explore the proposed charitable pool, impact reporting, and clear expectations."],
-    "audience-investor": ["FOR INVESTORS", "Invest in the infrastructure", "Explore Junnah's proposed operating model and the separation of capital."]
+    "audience-investor": ["FOR INVESTORS", "Individual investor profile", "View a funded demo account, its profit rate, anticipated return, and payment date."]
   }[page];
 
   return <div className="app-shell">
@@ -320,7 +320,7 @@ function App() {
         {page === "student" && <StudentPage cases={cases} selected={selected} setSelectedId={setSelectedId} setShowApply={setShowApply} monthly={monthly} setMonthly={setMonthly} months={months} updateCase={updateCase} showNotice={showNotice} />}
         {page === "case" && <CasePage cases={cases} selected={selected} setSelectedId={setSelectedId} updateCase={updateCase} showNotice={showNotice} />}
         {page === "university" && <UniversityPage cases={cases} selected={selected} setSelectedId={setSelectedId} updateCase={updateCase} showNotice={showNotice} />}
-        {page === "investor" && <InvestorPage cases={cases} approvedTotal={approvedTotal} activeCount={activeCount} />}
+        {page === "investor" && <InvestorPage cases={cases} />}
         {page === "donor" && <DonorPage cases={cases} approvedTotal={approvedTotal} />}
         {page === "website" && <WebsitePage showNotice={showNotice} />}
         {page.startsWith("audience-") && <AudiencePage audience={audience} setAudience={id => {setAudience(id);setPage(`audience-${id}`);}} setPage={setPage} setShowApply={setShowApply} />}
@@ -431,6 +431,12 @@ function UniversityPage({cases, selected, setSelectedId, updateCase, showNotice}
     : cases.filter(c=>c.university===activeInstitution);
   const visibleCases = institutionCases.filter(c=>activeTab==="all"||(activeTab==="graduation"&&c.reason==="Graduation clearance")||(activeTab==="registration"&&c.reason!=="Graduation clearance"));
   const pending = institutionCases.filter(c=>!["Payment confirmed","Declined"].includes(c.status));
+  const clearedCases = institutionCases.filter(c=>c.status==="Payment confirmed");
+  const fundsDisbursed = clearedCases.reduce((sum,c)=>sum+c.requested,0);
+  const illustrativeSaasFee = 500;
+  const illustrativePerStudentFee = 75;
+  const serviceFees = clearedCases.length * illustrativePerStudentFee;
+  const invoiceDue = illustrativeSaasFee + serviceFees;
   const selectedReferral = institutionCases.find(c=>c.id===selected.id)||institutionCases[0]||selected;
   const chooseInstitution = (name) => {
     setActiveInstitution(name);
@@ -451,8 +457,23 @@ function UniversityPage({cases, selected, setSelectedId, updateCase, showNotice}
         <span className="institution-stats"><span><strong>{institutionRecords.length}</strong> {institutionRecords.length===1?"referral":"referrals"}</span><span><strong>{money(balanceTotal)}</strong> balances</span></span>
       </button>;
     })}</div>
-    <div className="metric-grid"><Metric label="Student referrals" value={institutionCases.length} note={activeInstitution==="All institutions"?"Across all illustrative campuses":"For selected institution"} icon={GraduationCap}/><Metric label="Awaiting action" value={pending.length} note="Verification or case processing" icon={Clock3}/><Metric label="Balances referred" value={money(institutionCases.reduce((s,c)=>s+c.balance,0))} note="Not equivalent to approved funding" icon={CircleDollarSign}/><Metric label="Payments confirmed" value={money(institutionCases.filter(c=>c.status==="Payment confirmed").reduce((s,c)=>s+c.requested,0))} note="Simulated transactions only" icon={CheckCircle2}/></div>
-    <div className="section-heading"><div><h2>Referral and balance queue</h2><p>University staff can verify a balance and monitor the referral lifecycle.</p></div><Button variant="secondary" onClick={()=>showNotice("New referral form is represented by the demo application workflow.")}>+ New referral</Button></div>
+    <div className="university-finance-grid">
+      <section className="card university-invoice-card">
+        <div className="university-finance-heading"><div><div className="welcome-kicker"><FileText size={14}/> UNIVERSITY INVOICE</div><h3>Invoice due</h3><p>{activeInstitution==="All institutions"?"Combined illustrative account":activeInstitution} · Monthly example</p></div><Pill tone="warning">Illustrative · Unpaid</Pill></div>
+        <div className="university-invoice-lines">
+          <div><span>Platform SaaS fee <small>monthly example</small></span><strong>{money(illustrativeSaasFee)}</strong></div>
+          <div><span>Student service fees <small>{clearedCases.length} cleared × {money(illustrativePerStudentFee)} per student</small></span><strong>{money(serviceFees)}</strong></div>
+        </div>
+        <div className="university-invoice-total"><span>Illustrative invoice total due</span><strong>{money(invoiceDue)}</strong></div>
+        <p className="fine-print">Sample pricing assumptions only—not contracted rates or an actual payable invoice. No fees are charged in this demo.</p>
+      </section>
+      <div className="university-funding-metrics">
+        <Metric label="Education funds disbursed" value={money(fundsDisbursed)} note="Synthetic payments confirmed" icon={Wallet}/>
+        <Metric label="Students cleared" value={clearedCases.length} note="Funds marked cleared at institution" icon={CheckCircle2}/>
+        <Metric label="Student cases" value={institutionCases.length} note="Includes pending and cleared records" icon={GraduationCap}/>
+      </div>
+    </div>
+    <div className="section-heading"><div><h2>Student funding records</h2><p>Track each student's funding status, amount, and university verification. Select a student to review their case details.</p></div><Button variant="secondary" onClick={()=>showNotice("New referral form is represented by the demo application workflow.")}>+ New referral</Button></div>
     <div className="card table-card"><div className="table-toolbar"><div className="filter-tabs">{[{id:"all",label:"All referrals"},{id:"registration",label:"Registration"},{id:"graduation",label:"Graduation"}].map(t=><button key={t.id} className={activeTab===t.id?"selected":""} onClick={()=>setActiveTab(t.id)}>{t.label}</button>)}</div><span className="count-label">{visibleCases.length} {visibleCases.length===1?"record":"records"} · {activeInstitution}</span></div><table><thead><tr><th>STUDENT</th><th>INSTITUTION</th><th>REFERRAL TYPE</th><th>DEADLINE</th><th>BALANCE</th><th>VERIFICATION</th><th>STATUS</th><th></th></tr></thead><tbody>{visibleCases.map(c=><tr key={c.id}><td><button className="table-person" onClick={()=>setSelectedId(c.id)}><span className="mini-avatar">{c.initials}</span><span><strong>{c.name}</strong><small>{c.id}</small></span></button></td><td>{c.university}</td><td>{c.reason}</td><td>{c.deadline}</td><td className="amount-cell">{money(c.balance)}</td><td><Pill tone={c.verified?"success":"warning"}>{c.verified?"Verified":"Needs review"}</Pill></td><td><Pill tone={c.status==="Payment confirmed"?"success":"warning"}>{c.status}</Pill></td><td><button className="row-action" onClick={()=>setSelectedId(c.id)}>Open <ArrowRight size={13}/></button></td></tr>)}</tbody></table>{visibleCases.length===0&&<div className="empty-state">No referrals match this filter for the selected institution.</div>}</div>
     <div className="section-heading"><div><h2>Selected referral</h2><p>Review the selected case and simulate institutional actions.</p></div><select className="compact-select" value={selectedReferral.id} onChange={e=>setSelectedId(e.target.value)}>{institutionCases.map(c=><option key={c.id} value={c.id}>{c.name}</option>)}</select></div>
     <div className="two-col"><div className="card pad-card"><div className="card-head"><div><h3>{selectedReferral.name}</h3><p>{selectedReferral.university} · {selectedReferral.major}</p></div><Pill tone={selectedReferral.verified?"success":"warning"}>{selectedReferral.verified?"Balance verified":"Verification needed"}</Pill></div><div className="application-summary"><div><span>Referral pathway</span><strong>{selectedReferral.reason}</strong></div><div><span>Outstanding balance</span><strong>{money(selectedReferral.balance)}</strong></div><div><span>Requested support</span><strong>{money(selectedReferral.requested)}</strong></div><div><span>Deadline</span><strong>{selectedReferral.deadline}</strong></div></div><div className="review-alert"><HelpCircle size={17}/><div><strong>Graduation pathway reminder</strong><span>For graduation-clearance referrals, confirm academic completion, graduation eligibility, the exact balance, and whether payment resolves the financial barrier.</span></div></div><Button variant="secondary" onClick={()=>updateCase(selectedReferral.id,{verified:true},"University balance marked verified in demo.")}><BadgeCheck size={16}/> Confirm balance</Button></div>
@@ -461,18 +482,38 @@ function UniversityPage({cases, selected, setSelectedId, updateCase, showNotice}
   </>;
 }
 
-function InvestorPage({cases, approvedTotal, activeCount}) {
+function InvestorPage({cases}) {
   const paid = cases.filter(c=>c.status==="Payment confirmed").reduce((s,c)=>s+c.requested,0);
   const approved = cases.filter(c=>c.status==="Approved").reduce((s,c)=>s+c.requested,0);
   const recovered = 1250;
   const poolStart = 75000;
-  const outstanding = Math.max(0,paid+approved-recovered);
   const available = Math.max(0,poolStart-paid-approved+recovered);
+  const investmentAmount = 10000;
+  const annualProfitRate = 8;
+  const anticipatedProfit = investmentAmount * annualProfitRate / 100;
   return <>
-    <div className="capital-hero"><div><div className="welcome-kicker"><Activity size={14}/> ILLUSTRATIVE CAPITAL MODEL</div><h2>Capital with a clear purpose.</h2><p>Understand how principal is deployed, recovered, and recycled—separately from Junnah's operating revenue.</p></div><div className="capital-hero-mark"><CircleDollarSign size={46}/><span>QARD HASAN</span></div></div>
+    <div className="capital-hero"><div><div className="welcome-kicker"><Activity size={14}/> INDIVIDUAL INVESTOR · ACCOUNT OVERVIEW</div><h2>Your investment at a glance.</h2><p>Review a sample funded investment, its illustrative profit rate, anticipated profit payment, and payment date.</p></div><div className="capital-hero-mark"><CircleDollarSign size={46}/><span>DEMO ACCOUNT</span></div></div>
+    <section className="card pad-card investor-profile">
+      <div className="investor-profile-header">
+        <div className="investor-identity"><div className="investor-avatar">DI</div><div><h3>Demo Investor</h3><p>Investor account · DEMO-INV-001</p></div></div>
+        <Pill tone="success">Funded · Demo</Pill>
+      </div>
+      <div className="investor-account-grid">
+        <div className="investor-account-item"><span>Investment amount</span><strong>{money(investmentAmount)}</strong><small>Shown as funded in this sample profile</small></div>
+        <div className="investor-account-item"><span>Annual profit rate</span><strong>{annualProfitRate}%</strong><small>Illustrative sample term</small></div>
+        <div className="investor-account-item investor-payment-item"><span>Anticipated profit payment</span><strong>{money(anticipatedProfit)}</strong><small>Illustrative annual amount</small></div>
+      </div>
+      <div className="investor-next-payment">
+        <div className="investor-payment-icon"><CalendarClock size={19}/></div>
+        <div className="investor-payment-copy"><span>Next anticipated payment date</span><strong>October 21, 2027</strong></div>
+        <Pill>Anticipated · Not guaranteed</Pill>
+      </div>
+    </section>
+    <div className="info-callout investor-separation-note"><ShieldCheck size={17}/><p>This is a fictional, already-funded account for product demonstration. The $10,000 investment, 8% annual profit rate, $800 anticipated payment, and October 21, 2027 date are sample values—not actual Junnah terms, a forecast, commitment, or guarantee. Any real distribution would depend on realized eligible profits, definitive agreements, and required legal, regulatory, and qualified Sharia review. This profile is separate from charitable donations and the student financing pool.</p></div>
+    <div className="section-heading"><div><h2>Separate student financing pool · demo only</h2><p>This synthetic pool activity is separate from Demo Investor's fictional account above.</p></div></div>
     <div className="metric-grid"><Metric label="Illustrative pool capital" value={money(poolStart)} note="Planning assumption only" icon={Wallet}/><Metric label="Principal deployed" value={money(paid+approved)} note="Approved and confirmed demo cases" icon={ArrowDownRight}/><Metric label="Principal recovered" value={money(recovered)} note="Synthetic example" icon={ArrowRight}/><Metric label="Available pool liquidity" value={money(available)} note="Simplified illustration" icon={Activity}/></div>
     <div className="two-col"><div className="card pad-card"><div className="card-head"><div><h3>Financing pool activity</h3><p>Illustrative allocation of capital</p></div><Pill tone="success">Demo data</Pill></div><div className="capital-bars"><div className="capital-bar-row"><div><span>Available liquidity</span><strong>{money(available)}</strong></div><div className="bar-track"><span style={{width:`${Math.min(100,available/poolStart*100)}%`}}/></div></div><div className="capital-bar-row"><div><span>Principal deployed / approved</span><strong>{money(paid+approved)}</strong></div><div className="bar-track"><span className="bar-gold" style={{width:`${Math.min(100,(paid+approved)/poolStart*100)}%`}}/></div></div><div className="capital-bar-row"><div><span>Principal recovered</span><strong>{money(recovered)}</strong></div><div className="bar-track"><span className="bar-blue" style={{width:`${Math.min(100,recovered/poolStart*100)}%`}}/></div></div></div><div className="info-callout"><ShieldCheck size={17}/><p>Pool capital may be depleted by defaults, approved forgiveness, and unrecovered balances. This illustrative dashboard does not guarantee principal preservation or investment returns.</p></div></div>
-      <div className="card pad-card"><div className="card-head"><div><h3>Operating company</h3><p>Separate from student financing capital</p></div><div className="soft-icon"><BriefcaseBusiness size={17}/></div></div><div className="ledger-list"><div><span>University SaaS revenue</span><strong>$0</strong></div><div><span>Implementation revenue</span><strong>$0</strong></div><div><span>Operating expenses</span><strong>$0</strong></div><div><span>Investor commitments</span><strong>$0</strong></div><div className="ledger-total"><span>Operating status</span><Pill>Pre-revenue concept</Pill></div></div><p className="fine-print">No contracts, funding commitments, or actual transactions are represented. Values are placeholders for product demonstration.</p></div></div>
+      <div className="card pad-card"><div className="card-head"><div><h3>Operating company</h3><p>Separate from student financing capital</p></div><div className="soft-icon"><BriefcaseBusiness size={17}/></div></div><div className="ledger-list"><div><span>University SaaS revenue</span><strong>$0</strong></div><div><span>Implementation revenue</span><strong>$0</strong></div><div><span>Operating expenses</span><strong>$0</strong></div><div><span>Actual investor commitments</span><strong>$0</strong></div><div className="ledger-total"><span>Operating status</span><Pill>Pre-revenue concept</Pill></div></div><p className="fine-print">No contracts, funding commitments, or actual transactions are represented. Values are placeholders for product demonstration.</p></div></div>
     <div className="section-heading"><div><h2>Portfolio cases</h2><p>Illustrative case activity that feeds this dashboard.</p></div><span className="count-label">{cases.length} records</span></div><div className="card table-card"><table><thead><tr><th>APPLICATION</th><th>STATUS</th><th>REQUESTED</th><th>POOL EFFECT</th></tr></thead><tbody>{cases.map(c=><tr key={c.id}><td><strong>{c.id}</strong><small className="table-sub">{c.name}</small></td><td><Pill tone={c.status==="Payment confirmed"?"success":"warning"}>{c.status}</Pill></td><td className="amount-cell">{money(c.requested)}</td><td>{c.status==="Payment confirmed"?"Principal disbursed":c.status==="Approved"?"Potential commitment":"No disbursement recorded"}</td></tr>)}</tbody></table></div>
   </>;
 }
@@ -547,15 +588,15 @@ const audiencePages = {
     label: "For investors",
     icon: Activity,
     eyebrow: "OPERATING-COMPANY INVESTMENT",
-    title: "Build the infrastructure around student support.",
-    description: "Junnah's proposed company model is built around university software and administration services—not taking a share of charitable donations or student principal repayments.",
-    action: "View the illustrative capital overview",
+    title: "A clear view of your investment.",
+    description: "The investor demo shows a funded profile, annual profit rate, anticipated profit payment, and scheduled payment date in one place.",
+    action: "View the investor account demo",
     features: [
-      ["Fund company operations", "Operating-company capital could support product development, security, legal and compliance work, university implementation, and operations."],
+      ["See account details", "Review the sample investment amount and illustrative annual profit rate as part of a single investor profile."],
+      ["Track the anticipated payment", "See the sample annual profit amount and the date it is anticipated to be paid."],
       ["Separate the financial ledgers", "Charitable pool capital, company investment, and university contract revenue have distinct purposes and should be accounted for separately."],
-      ["Keep returns tied to real results", "Any investor rights or eligible profit distributions would depend on definitive agreements and legal, tax, regulatory, and Sharia review. Returns are not guaranteed."]
     ],
-    actionNote: "This is not an investment offer. No fundraising, commitments, contracts, or operating revenue are represented as confirmed."
+    actionNote: "This is a fictional funded account for demonstration only. The sample amount, profit rate, anticipated payment, and date are not actual Junnah terms or a promise. Any future structure would require definitive agreements and appropriate review."
   }
 };
 
