@@ -1,55 +1,11 @@
 import React, { useEffect, useState } from "react";
 import {
-  ArrowDown, ArrowLeft, ArrowRight, BookOpen, Check, ChevronLeft,
+  ArrowDown, ArrowLeft, ArrowRight, BookOpen, Check, ChevronLeft, Download,
   ChevronRight, CircleDollarSign, Compass, GraduationCap, HeartHandshake,
   Landmark, Menu, ShieldCheck, Sparkles, Users, X
 } from "lucide-react";
 import "./public.css";
-
-const slides = [
-  {
-    label: "01 / THE NEED",
-    title: "Education should not come with a choice between progress and principle.",
-    body: "Students can face tuition gaps, unexpected balances, or administrative holds at critical moments in their education.",
-    note: "The need and its scale must be validated with students and university partners."
-  },
-  {
-    label: "02 / THE PROPOSAL",
-    title: "Coordinate support around the student—not just the balance.",
-    body: "Junnah is exploring a university-integrated, Sharia-guided support model with clear verification, human review, and payment coordination.",
-    note: "This is a product concept, not an available financing program."
-  },
-  {
-    label: "03 / THE WORKFLOW",
-    title: "A transparent path from a financial barrier to a clear next step.",
-    body: "Student intake → university verification → human case review → documented decision → direct university payment if approved → ongoing support.",
-    note: "Eligibility, agreements, funding, and operations remain to be designed and validated."
-  },
-  {
-    label: "04 / THE FIRST TEST",
-    title: "Start small, learn with a university, and measure what matters.",
-    body: "The proposed first pilot would test the workflow with one New Jersey institution and approximately ten students over one semester.",
-    note: "A pilot depends on a willing institution, available capital, legal and regulatory review, and qualified Sharia guidance."
-  },
-  {
-    label: "05 / THE MODEL",
-    title: "Keep operating-company economics separate from charitable capital.",
-    body: "The proposed company could earn revenue for university software and administrative services. A charitable financing pool, if established, would be separately governed and accounted for.",
-    note: "No revenue, investment terms, charitable pool, or financial return is currently established or guaranteed."
-  },
-  {
-    label: "06 / THE PRINCIPLES",
-    title: "Build trust into the structure—not just the story.",
-    body: "Dignity, fairness, transparency, stewardship, privacy, and independent review should shape the product and every future financing decision.",
-    note: "No Sharia-compliance claim is made. Any future structure requires qualified independent review."
-  },
-  {
-    label: "07 / THE NEXT STEP",
-    title: "Help validate the first responsible version of Junnah.",
-    body: "We are seeking conversations with university partners, Muslim-focused early-stage funders, and qualified legal, financial, and Sharia advisors.",
-    note: "This presentation is for discussion only—not an offer to invest, donate, or borrow."
-  }
-];
+import slides from "./deck-content.json";
 
 const workflow = [
   {
@@ -339,17 +295,37 @@ function DeckPage() {
     <header className="deck-toolbar">
       <a className="deck-back" href="./#deck"><ArrowLeft size={16} /> Back to Junnah</a>
       <Brand />
-      <span className="deck-toolbar-label">CONCEPT DECK · {String(currentSlide + 1).padStart(2, "0")} / {String(slides.length).padStart(2, "0")}</span>
+      <div className="deck-toolbar-actions">
+        <a className="deck-download" href="./Junnah_Deck_Redesigned.pdf" download><Download size={15} /> Download deck</a>
+        <span className="deck-toolbar-label">CONCEPT DECK · {String(currentSlide + 1).padStart(2, "0")} / {String(slides.length).padStart(2, "0")}</span>
+      </div>
     </header>
     <div className="deck-stage">
       <div className="deck-slide" key={currentSlide}>
-        <div className="deck-slide-decoration" aria-hidden="true"><div /><div /><div /></div>
+        <div className="deck-slide-decoration" aria-hidden="true" />
         <div className="deck-slide-content">
           <div className="public-kicker"><span /> {slide.label}</div>
-          <h1>{slide.title}</h1>
-          <p className="deck-slide-body">{slide.body}</p>
-          <div className="deck-slide-note"><ShieldCheck size={16} /><p>{slide.note}</p></div>
-          <div className="deck-slide-brand"><span>j</span> junnah<span className="brand-period">.</span></div>
+          {slide.cover ? <>
+            <div className="deck-cover-content">
+              <h1>{slide.title}</h1>
+              <p>{slide.subtitle}</p>
+              <span>{slide.note}</span>
+            </div>
+            <div className="deck-slide-brand"><span>j</span> junnah<span className="brand-period">.</span></div>
+          </> : <>
+            <h1>{slide.title}</h1>
+            {slide.subtitle && <p className="deck-slide-body">{slide.subtitle}</p>}
+            <div className={`deck-cards deck-cards-${slide.cards.length}`}>
+              {slide.cards.map((card, index) => <article className="deck-card" key={card.title}>
+                <span className="deck-card-number">{String(index + 1).padStart(2, "0")}</span>
+                <h2>{card.title}</h2>
+                {card.body && <p>{card.body}</p>}
+                {card.note && <small>{card.note}</small>}
+              </article>)}
+            </div>
+            {slide.note && <div className="deck-slide-note"><ShieldCheck size={16} /><p>{slide.note}</p></div>}
+            <div className="deck-slide-brand"><span>j</span> junnah<span className="brand-period">.</span></div>
+          </>}
         </div>
       </div>
     </div>

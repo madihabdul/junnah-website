@@ -1,0 +1,232 @@
+[
+  {
+    "label": "JUNNAH · CONCEPT OVERVIEW",
+    "title": "Junnah",
+    "subtitle": "Interest-free financing for higher education",
+    "note": "Early-stage concept",
+    "cover": true
+  },
+  {
+    "label": "02 / OUR MISSION",
+    "title": "Students focus on their education, not on how to pay for it",
+    "cards": [
+      {
+        "title": "University-integrated, Sharia-guided support",
+        "body": "Overcome education-related financial barriers through an institutional, interest-free model."
+      },
+      {
+        "title": "Proactive continuity",
+        "body": "Accompany students from their first semester through graduation, resolving balances early before registration holds become crises."
+      },
+      {
+        "title": "Protecting the student experience",
+        "body": "Tuition pressure should never cost a student their campus standing, academic momentum, or decades of compound debt."
+      }
+    ],
+    "note": "Early-stage thesis: institutional integration stops financial dropouts before registration holds trigger."
+  },
+  {
+    "label": "03 / STUDENT EXPERIENCES",
+    "title": "Financial pressure can shape a student's whole path",
+    "subtitle": "Four anonymized profiles based on real experiences of New Jersey students from 2019 to 2025.",
+    "cards": [
+      {
+        "title": "One Semester Away from Graduation",
+        "body": "Final-semester tuition remained uncovered despite work and federal loans. Late fees delayed the diploma; the unpaid balance later went to collections."
+      },
+      {
+        "title": "A Dream of Medicine. A Conflict of Conviction.",
+        "body": "Accepted to medical school without family support, this student faces high costs and interest-bearing loans that conflict with their faith."
+      },
+      {
+        "title": "A Family That Can Afford College — Just Not All at Once",
+        "body": "Several siblings pursue college together, but upfront balances and short payment schedules make affordability and school choice difficult."
+      },
+      {
+        "title": "Working to Stay in School",
+        "body": "Working to cover tuition and living costs leaves less time for academics; when income falls short, a student may stop out."
+      }
+    ],
+    "note": "Junnah is a pre-validation concept; any future model depends on funding, an institutional partner, and appropriate legal, regulatory, financial, privacy, and qualified Sharia review."
+  },
+  {
+    "label": "04 / SYSTEM ARCHITECTURE",
+    "title": "Junnah is workflow infrastructure, not a chatbot or a loan marketplace",
+    "subtitle": "One connected system takes a student from shortfall to paid balance.",
+    "cards": [
+      {"title": "Identify the shortfall or new term."},
+      {"title": "University verifies amount and deadline"},
+      {"title": "Human reviewer assesses circumstances"},
+      {"title": "Student accepts documented, principal-only terms"},
+      {"title": "Junnah pays the university directly each semester"},
+      {"title": "Student tracks principal, repayment and hardship support"}
+    ]
+  },
+  {
+    "label": "05 / CIRCUMSTANTIAL UNDERWRITING",
+    "title": "Same balance, very different students",
+    "subtitle": "Three illustrative student profiles demonstrating why human review looks at real capacity rather than automated credit scores.",
+    "cards": [
+      {
+        "title": "Profile A · Employed, with family",
+        "body": "Earns part-time wages, but income is absorbed by essential household contributions. Living at home does not mean tuition liquidity exists.",
+        "note": "Review insight: family co-residence does not equal tuition surplus."
+      },
+      {
+        "title": "Profile B · Employed, independent",
+        "body": "Maintains consistent employment but carries full rent, utilities, food, and transit obligations. Zero discretionary margin remains for lump-sum term fees.",
+        "note": "Review insight: high fixed living overheads exhaust earnings."
+      },
+      {
+        "title": "Profile C · Unemployed, with family",
+        "body": "Zero earned income. Case management reviews household capacity and employment horizon rather than dismissing the student for lacking current payroll.",
+        "note": "Review insight: requires assessing actual household support capacity."
+      }
+    ],
+    "note": "Fictional profiles for review design. No standard automated algorithm captures non-discretionary family support obligations."
+  },
+  {
+    "label": "06 / STUDENT TRUST & GOVERNANCE",
+    "title": "Fair review and principal-only repayment build student trust",
+    "cards": [
+      {
+        "title": "01 · Human accountability",
+        "body": "No standard credit-score test; human reviewers stay accountable, with documented reasons and an appeal route."
+      },
+      {
+        "title": "02 · Qard Hasan structure",
+        "body": "Students repay principal only; $4,000 at $100 a month is 40 months, illustrative."
+      },
+      {
+        "title": "03 · Structured hardship support",
+        "body": "Deferment, reduced payments, periodic review."
+      },
+      {
+        "title": "04 · Proposed administration fee",
+        "body": "Illustratively $25 per new contract, charged only if approved, never at submission and never added to principal; pending legal and Sharia review, not an approved term."
+      }
+    ]
+  },
+  {
+    "label": "07 / COMMERCIAL ARCHITECTURE",
+    "title": "Universities pay for software; investors share eligible company profit",
+    "cards": [
+      {
+        "title": "Enterprise SaaS hypotheses · University revenue models",
+        "body": "Institutions preserve retention by clearing administrative drops. Testing software subscriptions, onboarding implementation fees, administrative servicing fees, or volume tiers.",
+        "note": "Unvalidated hypothesis: pricing models require pilot discovery."
+      },
+      {
+        "title": "Ethical investor return · Contractual profit participation",
+        "body": "Investors hold rights strictly to eligible operating company profits. Investor returns never touch philanthropic donations or student principal repayments.",
+        "note": "Returns are commercial, unguaranteed, and ring-fenced from student repayments."
+      }
+    ],
+    "note": "University willingness to pay and exact SaaS contract amounts remain unvalidated hypotheses for pilot testing."
+  },
+  {
+    "label": "08 / HOW UNIVERSITIES BENEFIT",
+    "title": "Universities gain a structured path for unresolved balances",
+    "cards": [
+      {
+        "title": "Retention and re-enrollment",
+        "body": "A defined pathway for students blocked by balances. Effect on retention is to be measured with predicted higher retention and graduation rates."
+      },
+      {
+        "title": "Administrative efficiency",
+        "body": "One place for intake, verification, review, status and reporting across departments."
+      },
+      {
+        "title": "Balance resolution",
+        "body": "Approved cases paid directly to the university from the separate pool, subject to funding."
+      },
+      {
+        "title": "Reporting and accountability",
+        "body": "Applications, decisions, amounts disbursed and processing times."
+      },
+      {
+        "title": "Preventing collections at source",
+        "body": "Upfront tuition payment can address eligible balances before they enter collections and may reduce collection risk for supported cases."
+      }
+    ],
+    "note": "Pricing and value are unvalidated and must be tested with each institution. Junnah will not eliminate collections in every case. The university pays for software and administration only, separate from charitable funds and student repayments."
+  },
+  {
+    "label": "09 / FINANCIAL RING-FENCING",
+    "title": "Three kinds of money stay strictly separate",
+    "subtitle": "A proposed tri-vault structure is intended to separate financial flows; Sharia compliance and regulatory integrity require qualified review.",
+    "cards": [
+      {
+        "title": "Vault I · Charitable Pool / Student Financing",
+        "body": "Philanthropic donations and institutional gifts fund student principal directly. Repayments recycle to future eligible students under the pool's rules.",
+        "note": "Recycled capital; subject to default or forgiveness. Never guaranteed. Meant to serve as a Sadaqa Jariyah for donors."
+      },
+      {
+        "title": "Vault II · Operating Equity / Investor Capital",
+        "body": "Funds software engineering, compliance, operations, team payroll, and revolving fund. Equity investors hold claims solely against operating company value.",
+        "note": "Investors accept genuine business risk in exchange for a share of actual profits; they are not promised a fixed return, and student principal repayments remain entirely separate."
+      },
+      {
+        "title": "Vault III · Earned Revenue / University Contracts",
+        "body": "Commercial software licenses and institutional servicing fees paid by university partners for workflow infrastructure and retention management.",
+        "note": "Operating revenue stream sustaining the management company."
+      }
+    ],
+    "note": "Sharia compliance checks needed here to evaluate under a mudarabah or musharakah structure."
+  },
+  {
+    "label": "10 / PILOT SPECIFICATION",
+    "title": "A one-semester pilot with about 10 students tests the real workflow",
+    "cards": [
+      {
+        "title": "Scope",
+        "body": "One New Jersey university, about 10 students, one semester."
+      },
+      {
+        "title": "Long-term vision",
+        "body": "Support from a student's first semester through graduation; the pilot starts narrow."
+      },
+      {
+        "title": "Pilot pathways",
+        "body": "Final-semester shortfall, registration barrier, graduation-clearance barrier; rent and living costs excluded."
+      },
+      {
+        "title": "Measures",
+        "body": "Time to decision, amounts disbursed, barrier resolved, cost per case, hardship, university willingness to renew, retention rate, graduation rate."
+      },
+      {
+        "title": "Illustrative budget",
+        "body": "Dependent on university tuition, software/administration costs, and number of students in pilot."
+      }
+    ]
+  },
+  {
+    "label": "11 / THE JUNNAH ECOSYSTEM",
+    "title": "One coordinated experience across the support model",
+    "cards": [
+      {"title": "Student portal"},
+      {"title": "Case management"},
+      {"title": "University portal"},
+      {"title": "Investor and donor dashboards"}
+    ]
+  },
+  {
+    "label": "12 / STAGE & PARTNERSHIP ASK",
+    "title": "Where we are, and what we want from a partner",
+    "cards": [
+      {
+        "title": "Where we stand",
+        "body": "Built from lived experience. Solo software-engineer founder at pre-validation concept stage. Zero institutional partners, formal funding, or commercial revenue yet."
+      },
+      {
+        "title": "What must be validated",
+        "body": "Legal structure, formal Sharia advisory certification, and university willingness to pay software fees."
+      },
+      {
+        "title": "What we seek from partners",
+        "body": "Model stress-testing, introductions to New Jersey higher education leadership, pilot advisory support, and early hiring alignment."
+      }
+    ],
+    "note": "Founder contact: madiha.abdulmaajid@gmail.com · Early-stage discussion"
+  }
+]
