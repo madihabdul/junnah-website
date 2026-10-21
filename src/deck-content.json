@@ -50,7 +50,31 @@
     "note": "Junnah is a pre-validation concept; any future model depends on funding, an institutional partner, and appropriate legal, regulatory, financial, privacy, and qualified Sharia review."
   },
   {
-    "label": "04 / SYSTEM ARCHITECTURE",
+    "label": "04 / THE SUPPORT GAP",
+    "title": "Shared mission, different constraints",
+    "subtitle": "Community nonprofits and Junnah seek to help students—but eligibility and available resources can shape who receives support.",
+    "cards": [
+      {
+        "title": "Character-based assessments",
+        "body": "Some programs consider character or other eligibility criteria. Students who do not meet those criteria may still face an urgent education balance."
+      },
+      {
+        "title": "Donation-dependent capacity",
+        "body": "For donation-supported programs, available aid may not cover a student's full verified need. Funding levels and donor restrictions can affect how much support is available and when."
+      },
+      {
+        "title": "Lengthy reviews and separate paperwork",
+        "body": "Some aid pathways can involve extended review and separate documentation. Junnah is exploring a school-connected intake that starts with one simple form and coordinates verification with the institution, while keeping human review."
+      },
+      {
+        "title": "A complementary pathway",
+        "body": "Junnah is exploring a university-integrated model that could complement nonprofit aid and other resources—not replace them."
+      }
+    ],
+    "note": "These are hypotheses to validate with nonprofit partners and students. Eligibility and funding models vary across organizations."
+  },
+  {
+    "label": "05 / SYSTEM ARCHITECTURE",
     "title": "Junnah is workflow infrastructure, not a chatbot or a loan marketplace",
     "subtitle": "One connected system takes a student from shortfall to paid balance.",
     "cards": [
@@ -63,7 +87,7 @@
     ]
   },
   {
-    "label": "05 / CIRCUMSTANTIAL UNDERWRITING",
+    "label": "06 / CIRCUMSTANTIAL UNDERWRITING",
     "title": "Same balance, very different students",
     "subtitle": "Three illustrative student profiles demonstrating why human review looks at real capacity rather than automated credit scores.",
     "cards": [
@@ -86,7 +110,7 @@
     "note": "Fictional profiles for review design. No standard automated algorithm captures non-discretionary family support obligations."
   },
   {
-    "label": "06 / STUDENT TRUST & GOVERNANCE",
+    "label": "07 / STUDENT TRUST & GOVERNANCE",
     "title": "Fair review and principal-only repayment build student trust",
     "cards": [
       {
@@ -108,7 +132,7 @@
     ]
   },
   {
-    "label": "07 / COMMERCIAL ARCHITECTURE",
+    "label": "08 / COMMERCIAL ARCHITECTURE",
     "title": "Universities pay for software; investors share eligible company profit",
     "cards": [
       {
@@ -125,7 +149,7 @@
     "note": "University willingness to pay and exact SaaS contract amounts remain unvalidated hypotheses for pilot testing."
   },
   {
-    "label": "08 / HOW UNIVERSITIES BENEFIT",
+    "label": "09 / HOW UNIVERSITIES BENEFIT",
     "title": "Universities gain a structured path for unresolved balances",
     "cards": [
       {
@@ -152,7 +176,7 @@
     "note": "Pricing and value are unvalidated and must be tested with each institution. Junnah will not eliminate collections in every case. The university pays for software and administration only, separate from charitable funds and student repayments."
   },
   {
-    "label": "09 / FINANCIAL RING-FENCING",
+    "label": "10 / FINANCIAL RING-FENCING",
     "title": "Three kinds of money stay strictly separate",
     "subtitle": "A proposed tri-vault structure is intended to separate financial flows; Sharia compliance and regulatory integrity require qualified review.",
     "cards": [
@@ -175,7 +199,7 @@
     "note": "Sharia compliance checks needed here to evaluate under a mudarabah or musharakah structure."
   },
   {
-    "label": "10 / PILOT SPECIFICATION",
+    "label": "11 / PILOT SPECIFICATION",
     "title": "A one-semester pilot with about 10 students tests the real workflow",
     "cards": [
       {
@@ -201,7 +225,7 @@
     ]
   },
   {
-    "label": "11 / THE JUNNAH ECOSYSTEM",
+    "label": "12 / THE JUNNAH ECOSYSTEM",
     "title": "One coordinated experience across the support model",
     "cards": [
       {"title": "Student portal"},
@@ -211,7 +235,7 @@
     ]
   },
   {
-    "label": "12 / STAGE & PARTNERSHIP ASK",
+    "label": "13 / STAGE & PARTNERSHIP ASK",
     "title": "Where we are, and what we want from a partner",
     "cards": [
       {

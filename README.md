@@ -45,7 +45,7 @@ For the repository `madihabdul/junnah-website`, the homepage is `https://madihab
 
 - Investor-facing public homepage with mission, proposed workflow, prototype preview, pilot validation notes, and navigation
 - Standalone, keyboard-accessible presentation-style concept deck
-- Downloadable, website-styled 12-slide PDF deck, rebuilt from the provided slide content without the Gamma watermark
+- Downloadable, website-styled 13-slide PDF deck, rebuilt from the provided slide content without the Gamma watermark
 - Student portal and application submission modal
 - Six synthetic student circumstances
 - Case manager queue, verification, notes, and simulated decisions
