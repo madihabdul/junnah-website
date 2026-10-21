@@ -233,8 +233,8 @@ function HomePage() {
       <section className="founder-section public-container" id="founder">
         <div className="founder-note">
           <div className="public-eyebrow">A NOTE FROM THE FOUNDER</div>
-          <h2>Committed to the mission.<br /><em>Not personal gain.</em></h2>
-          <p>The founder is committed to Junnah’s mission and to building it into a sustainable, self-funding organization. The founder will not take any personal financial benefit from Junnah until it can fully fund its own operations.</p>
+          <h2><em>Mission before personal gain.</em></h2>
+          <p>I'm committed to building Junnah into a sustainable organization that can serve students for generations. Our resources and decisions will be guided by that mission, with responsible financial stewardship and transparency at the center of how we operate.</p>
         </div>
       </section>
     </main>
