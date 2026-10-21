@@ -91,8 +91,9 @@ function Brand({ light = false }) {
   </a>;
 }
 
-function PublicHeader() {
+function PublicHeader({ currentView = "home" }) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const homeAnchor = id => currentView === "home" ? `#${id}` : `./#${id}`;
   return <header className="public-header">
     <div className="public-header-inner">
       <Brand />
@@ -100,21 +101,24 @@ function PublicHeader() {
         {menuOpen ? <X size={20} /> : <Menu size={20} />}
       </button>
       <nav className={`public-nav${menuOpen ? " public-nav-open" : ""}`} aria-label="Main navigation">
-        <a href="#mission" onClick={() => setMenuOpen(false)}>Our mission</a>
-        <a href="#workflow" onClick={() => setMenuOpen(false)}>Workflow</a>
-        <a href="#demo" onClick={() => setMenuOpen(false)}>Product demo</a>
-        <a href="#deck" onClick={() => setMenuOpen(false)}>Pitch deck</a>
+        <a href={homeAnchor("mission")} onClick={() => setMenuOpen(false)}>Our mission</a>
+        <a href={homeAnchor("founder")} onClick={() => setMenuOpen(false)}>Founder</a>
+        <a href={homeAnchor("workflow")} onClick={() => setMenuOpen(false)}>Workflow</a>
+        <a href="?view=stories" onClick={() => setMenuOpen(false)}>Student stories</a>
+        <a href={homeAnchor("demo")} onClick={() => setMenuOpen(false)}>Product demo</a>
+        <a href={homeAnchor("deck")} onClick={() => setMenuOpen(false)}>Pitch deck</a>
         <a className="public-nav-cta" href="?view=demo">Explore the demo <ArrowRight size={15} /></a>
       </nav>
     </div>
   </header>;
 }
 
-function PublicFooter() {
+function PublicFooter({ currentView = "home" }) {
+  const homeAnchor = id => currentView === "home" ? `#${id}` : `./#${id}`;
   return <footer className="public-footer">
     <div className="public-footer-main">
       <div><Brand light /><p>Student support, rooted in dignity.</p></div>
-      <div className="public-footer-links"><a href="#mission">Mission</a><a href="#workflow">Workflow</a><a href="?view=demo">Demo</a><a href="?view=deck">Pitch deck</a></div>
+      <div className="public-footer-links"><a href={homeAnchor("mission")}>Mission</a><a href={homeAnchor("workflow")}>Workflow</a><a href="?view=stories">Student stories</a><a href="?view=demo">Demo</a><a href="?view=deck">Pitch deck</a></div>
     </div>
     <div className="public-footer-note">Junnah is a pre-validation product concept. No financing, donations, or investments are offered. Any future program depends on appropriate university, legal, regulatory, financial, privacy, and qualified Sharia review.</div>
   </footer>;
@@ -226,8 +230,94 @@ function HomePage() {
         <div><div className="public-eyebrow">WHAT COMES NEXT</div><h2>Validate before we scale.</h2><p>The proposed first test is a small pilot with one New Jersey institution and approximately ten students over one semester. First, we need a willing university partner, appropriate advisors, and a responsible path to funding and evaluation.</p></div>
         <div className="validation-badge">PROPOSED<br />PILOT</div>
       </section>
+
+      <section className="founder-section public-container" id="founder">
+        <div className="founder-note">
+          <div className="public-eyebrow">A NOTE FROM THE FOUNDER</div>
+          <h2>Committed to the mission.<br /><em>Not personal gain.</em></h2>
+          <p>The founder is committed to Junnah’s mission and to building it into a sustainable, self-funding organization. The founder will not take any personal financial benefit from Junnah until it can fully fund its own operations.</p>
+        </div>
+      </section>
     </main>
     <PublicFooter />
+  </div>;
+}
+
+const studentProfiles = [
+  {
+    title: "One Semester Away from Graduation",
+    story: [
+      "Throughout college, this student was their family's primary financial provider while working toward their degree. They accepted subsidized and unsubsidized federal student loans, working to pay off the unsubsidized portion as quickly as possible to minimize interest.",
+      "When their final semester arrived, their remaining tuition balance was not covered by their loans. Despite working and supporting their family, they struggled to pay the balance on time, incurring additional late fees. The delay also held up the issuance of their diploma. One month after graduation, the university sold the unpaid balance to a collections agency without the student knowing. They spent years trying to repay it, prolonging the consequences of a financial shortfall well beyond graduation."
+    ],
+    help: "By paying eligible tuition balances upfront and allowing students to repay over time without interest, Junnah aims to prevent a final-semester payment shortfall from delaying a student's next chapter."
+  },
+  {
+    title: "A Dream of Medicine. A Conflict of Conviction.",
+    story: [
+      "This student completed their undergraduate degree while taking on student loans. Now accepted into medical school, they are pursuing a career they've worked toward for years — without financial support from family.",
+      "Medical school brings years of additional education expenses. Without family support, interest-bearing loans may be the only financing option available to them, leaving them facing debt they may be unable to repay for years.",
+      "For a student whose faith prohibits interest, the decision becomes more than financial. They must weigh the future they've worked toward against a financing system that conflicts with their deeply held beliefs."
+    ],
+    help: "Junnah aims to offer eligible students an interest-free tuition-financing alternative, helping them pursue their educational ambitions without compromising their religious convictions."
+  },
+  {
+    title: "A Family That Can Afford College — Just Not All at Once",
+    story: [
+      "In a working middle-class household, multiple siblings are pursuing higher education at the same time. Their family can manage monthly education expenses, but the tuition balances remaining after financial aid are too large to pay upfront.",
+      "University payment plans offer limited relief. Their repayment schedules can require balances to be paid in full before the semester ends, creating overlapping and aggressive payment obligations when several children are enrolled simultaneously.",
+      "The family must make difficult choices. Siblings may attend different colleges based on affordability rather than academic fit, while others may forgo higher education rather than rely on interest-bearing financing that conflicts with their religious principles."
+    ],
+    help: "By paying eligible tuition balances upfront and offering interest-free repayment over time, Junnah aims to give families more manageable payment schedules and greater flexibility in supporting multiple students."
+  },
+  {
+    title: "Working to Stay in School",
+    story: [
+      "For this student, staying in college means working throughout the semester to cover tuition and living expenses. Balancing work with coursework leaves less time and energy for academics, campus clubs, internships, and the personal and professional relationships that can shape a student's future.",
+      "Living on campus may be financially out of reach, further limiting their ability to participate in university life. When working enough hours still isn't sufficient to cover the next semester's costs, the student may have to take time away from school to earn enough to return.",
+      "What begins as a way to finance an education can become a cycle of working, stopping out, and trying to return — extending the time it takes to graduate and making academic progress more difficult."
+    ],
+    help: "By helping eligible students manage tuition payments over time without interest, Junnah aims to reduce financial pressure that can force students to choose between earning an education and earning enough to continue pursuing one."
+  }
+];
+
+function StudentStoriesPage() {
+  return <div className="public-site">
+    <PublicHeader currentView="stories" />
+    <main>
+      <section className="stories-hero">
+        <div className="public-container stories-hero-inner">
+          <div className="public-kicker"><span /> STUDENT EXPERIENCES</div>
+          <h1>Real lives.<br /><em>Real barriers to education.</em></h1>
+          <p>Behind every tuition balance is a student trying to keep their education and future within reach.</p>
+        </div>
+      </section>
+      <section className="stories-intro public-container">
+        <div className="public-eyebrow">WHY THIS MATTERS</div>
+        <h2>Financial pressure can shape a student's whole path.</h2>
+        <p>These profiles are based on real experiences of students attending college in New Jersey between 2019 and 2025. They are shared without identifying details.</p>
+        <div className="stories-disclaimer"><ShieldCheck size={16} /><p>Junnah is a pre-validation concept, not a currently available financing program. The ways Junnah aims to help below describe a proposed model that would need funding, institutional partnership, and appropriate legal, regulatory, financial, privacy, and qualified Sharia review.</p></div>
+      </section>
+      <section className="stories-list public-container" aria-label="Student profiles">
+        {studentProfiles.map(({ title, story, help }, index) => <article className="student-story" key={title}>
+          <div className="student-story-number">{String(index + 1).padStart(2, "0")}</div>
+          <div className="student-story-content">
+            <h2>{title}</h2>
+            {story.map(paragraph => <p key={paragraph}>{paragraph}</p>)}
+            <div className="student-story-help">
+              <div className="public-eyebrow">HOW JUNNAH AIMS TO HELP</div>
+              <p>{help}</p>
+            </div>
+          </div>
+        </article>)}
+      </section>
+      <section className="stories-next public-container">
+        <div><div className="public-eyebrow">A PROPOSED PATH FORWARD</div><h2>Support should fit the student's real circumstances.</h2></div>
+        <a className="public-button public-button-dark" href="./#workflow">See the proposed workflow <ArrowRight size={16} /></a>
+      </section>
+      <p className="stories-attribution public-container">Two profiles are drawn from the lived experiences of the founder and her brother.</p>
+    </main>
+    <PublicFooter currentView="stories" />
   </div>;
 }
 
@@ -277,5 +367,7 @@ function DeckPage() {
 
 export default function PublicSite() {
   const view = new URLSearchParams(window.location.search).get("view");
-  return view === "deck" ? <DeckPage /> : <HomePage />;
+  if (view === "deck") return <DeckPage />;
+  if (view === "stories") return <StudentStoriesPage />;
+  return <HomePage />;
 }
